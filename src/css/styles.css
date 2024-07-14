@@ -1,0 +1,46 @@
+@font-face {
+    font-family: "Ubuntu";
+    src: url(../fonts/Ubuntu-Regular.ttf);
+}
+
+:root{
+    --color-white: rgb(248, 248, 248);
+    --color-black: rgb(31, 31, 31);
+    --regular-font-family: "Ubuntu";
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: var(--color-white);
+    font-family: var(--regular-font-family);
+}
+
+*, *::after, *::before{
+    box-sizing: border-box;
+}
+
+
+body {
+    min-height: 100vh;
+    background-image: url(../imgs/background.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+}
+
+#header {
+    background-color: rgba(0, 0, 0, 0.212);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    min-height: 85px;
+    gap: 7px;
+}
+
+#header h1{
+    margin: 5px;
+}
+
+#header img {
+    height: 60px;
+}
