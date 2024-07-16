@@ -28,13 +28,14 @@ body {
 }
 
 #header {
-    background-color: rgba(0, 0, 0, 0.212);
+    background-color: rgba(0, 0, 0, 0.336);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
     min-height: 85px;
     gap: 7px;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.185);
 }
 
 #header h1{
@@ -43,4 +44,139 @@ body {
 
 #header img {
     height: 60px;
+}
+
+#content {
+    flex-grow: 1;
+    display: flex;
+}
+
+#sidebar {
+    background-color: rgba(0, 0, 0, 0.336);
+    width: 23%;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+#sidebar .add-container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+}
+
+.add-container img {
+    width: 50px;
+}
+
+#sidebar .add-container:hover{
+    background-color: rgba(0, 0, 0, 0.164);
+}
+
+.projectAddModal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    background-image: url(../imgs/modalProject.svg);
+    height: 40%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.projectAddModal form {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    border-radius: 7px;
+    /* background-color: rgba(0, 0, 0, 0.055); */
+    text-shadow: 0px 0px 13px black;
+    color: --;
+    
+}
+
+.projectAddModal form h1 {
+    min-height: 30px;
+    font-size: 2rem;
+}
+
+.projectAddModal form .input-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    justify-content: space-around;
+    width: 80%;
+}
+
+.projectAddModal input{
+    background-color: transparent;
+    border: none;
+    color: var(--color-white);
+    border-bottom: 2px solid var(--color-white);
+    width: 80%;
+    height: 30px;
+    font-size: 1.3rem;
+    text-shadow: 0px 0px 13px black;
+}
+
+.input-container:focus, input:focus{
+    outline: 2px solid white;
+    border-radius: 7px;
+    border-bottom: 2px solid transparent;
+}
+
+.projectAddModal label{
+    font-size: 1.7rem;
+}
+
+.submit_container {
+    min-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    align-self: center;
+}
+
+button.submit, button.reset {
+    width: 45%;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.5s;
+    text-shadow: 0px 0px 13px black;
+}
+
+div.submit_container > button > img {
+    height: 25px;
+    width: 25px;
+    margin-bottom: 3px;
+}
+
+div.submit_container button:hover {
+    transform: scale(1.05);
+}
+
+div.submit_container button:active {
+    transform: scale(0.97);
 }
