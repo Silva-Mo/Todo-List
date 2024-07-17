@@ -77,6 +77,24 @@ body {
     background-color: rgba(0, 0, 0, 0.164);
 }
 
+.modal-container{
+    background-color: rgba(255, 255, 255, 0.418);
+}
+
+.modal-container{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0);
+    -webkit-backdrop-filter: blur(0.3em);
+    backdrop-filter: blur(0.3em);
+}
+
+
 .projectAddModal {
     position: absolute;
     left: 50%;
@@ -84,14 +102,23 @@ body {
     transform: translate(-50%, -50%);
     width: 30%;
     background-image: url(../imgs/modalProject.svg);
-    height: 40%;
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 7px;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    animation: popup 0.3s;
+}
+
+@keyframes popup {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;;
+    }
 }
 
 .projectAddModal form {
@@ -101,15 +128,14 @@ body {
     justify-content: space-between;
     height: 100%;
     border-radius: 7px;
-    /* background-color: rgba(0, 0, 0, 0.055); */
     text-shadow: 0px 0px 13px black;
-    color: --;
-    
+    gap: 10px;    
 }
 
 .projectAddModal form h1 {
     min-height: 30px;
     font-size: 2rem;
+    margin-top: 0;
 }
 
 .projectAddModal form .input-container{
@@ -163,7 +189,7 @@ button.submit, button.reset {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    transition: 0.5s;
+    transition: 0.1s;
     text-shadow: 0px 0px 13px black;
 }
 
@@ -180,3 +206,14 @@ div.submit_container button:hover {
 div.submit_container button:active {
     transform: scale(0.97);
 }
+
+.close {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.close img {
+    width: 40px;
+}
+

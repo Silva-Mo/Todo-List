@@ -1,12 +1,12 @@
 const projects = [];
 
-function project(name) {
+function project(title) {
     const todos = [];
-    return {name, todos};
+    return {title, todos};
 }
 
-const addProject = (name) => {
-    const projectVar = project(name);
+const addProject = (title) => {
+    const projectVar = project(title);
     projects.push(projectVar);
     console.log(projects);
 }

@@ -24,24 +24,30 @@
     <div class="footer">
         
     </div>
-    <div class="projectAddModal">
-        <form action="#" id="add-project">
-            <h1>Add a project</h1> 
-            <div class="input-container">
-                <label for="project-title">Title:</label>
-                <input type="text" name="project-title" id="project-title"> 
-            </div>
-            <div class="submit_container">
-                <button class="submit" type="submit" form="book_form_edit">
-                    Submit
-                    <img src="./imgs/tick.svg" alt="submit">
-                </button>
-                <button class="reset" type="reset" form="book_form_edit">
-                    Clear
-                    <img src="./imgs/clear.svg" alt="clear">
-                </button>
-            </div>
-        </form>
+    <div class="modal-container">
+        
+        <div class="projectAddModal">
+        <div class="close">
+            <img src="./imgs/close.svg" alt="close">
+        </div>
+            <form action="#" id="add-project">
+                <h1>Add a project</h1>
+                <div class="input-container">
+                    <label for="project-title">Title:</label>
+                    <input type="text" name="project-title" id="project-title" required minlength="0" maxlength="25">
+                </div>
+                <div class="submit_container">
+                    <button class="submit" type="submit" form="add-project">
+                        Submit
+                        <img src="./imgs/tick.svg" alt="submit">
+                    </button>
+                    <button class="reset" type="reset" form="add-project">
+                        Clear
+                        <img src="./imgs/clear.svg" alt="clear">
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
