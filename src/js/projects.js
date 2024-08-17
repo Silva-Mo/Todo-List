@@ -11,4 +11,15 @@ const addProject = (title) => {
     console.log(projects);
 }
 
-export {addProject};
+const projectIndexNum = ((title) => {
+    const indexNum = projects.findIndex((element) => element.title === title);
+    return indexNum;
+})
+
+const indexTodosValue = ((projectIndex) => {
+    const projectTasks = projects[projectIndex].todos;
+    console.log(projectTasks);
+    return projectTasks;
+})
+
+export {addProject, projectIndexNum, indexTodosValue};
