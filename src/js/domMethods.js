@@ -43,4 +43,27 @@ const showProjectTitle = ((projectTitle) => {
     projectTitleText.textContent = projectTitle;
 })
 
-export {showModal, closeModal,addProjectInSideBar, showProjectTasks, clearTodoDiv, showProjectTitle};
+const addFormToModal = ((option) => {
+    //
+})
+
+const clickFirstProjectOnload = () => {
+    const firstProjcet = document.querySelector('.default-projects-container').firstElementChild;
+    firstProjcet.click();
+}
+
+const addStyleforselected = ((element, color) => {
+    element.style.borderBottom = `3px solid ${color}`;
+    element.style.color = color;
+})
+
+const removeStylefromNotSelected = ((elements) => {
+    elements.forEach((element) => {
+        element.style.borderBottom = "3px solid transparent";
+        element.style.color = "white";
+    })
+})
+
+export {showModal, closeModal,addProjectInSideBar, showProjectTasks, clearTodoDiv, 
+    showProjectTitle, clickFirstProjectOnload, addStyleforselected, removeStylefromNotSelected
+};

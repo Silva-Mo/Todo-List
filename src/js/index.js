@@ -7,33 +7,34 @@ import * as defaults from './defaultTodo.js';
 
 defaults.addDefaultProjects();
 
-const addProject = document.querySelector('.add-project-container');
-const addTask = document.querySelector('.add-task-container');
+const add = document.querySelector('.add-container');
 const submitBtn = document.querySelector('.submit');
 const modalContainer = document.querySelector('.modal-container');
 const titleInput = document.querySelector('input');
 const form = document.querySelector('form');
 const closeModalBtn = document.querySelector('.close img');
 const projectDivs = document.querySelectorAll('.project-div');
+const addOptions = document.querySelectorAll('.modal-sidebar h3');
 
-addProject.addEventListener('click', () => {
+
+add.addEventListener('click', () => {
     domManipulation.showModal(modalContainer);
 })
 
 closeModalBtn.addEventListener('click', () => {
     domManipulation.closeModal(modalContainer);
-    formMehthods.resetInput(titleInput);
+    // formMehthods.resetInput(titleInput);
 })
 
-submitBtn.addEventListener('click', (e) => {
-    if (form.checkValidity()){
-        e.preventDefault(); 
-        createProject(formMehthods.getInfoFromInput(titleInput));
-        domManipulation.addProjectInSideBar(formMehthods.getInfoFromInput(titleInput));
-        domManipulation.closeModal(modalContainer);
-        formMehthods.resetInput(titleInput);
-    }
-})
+// submitBtn.addEventListener('click', (e) => {
+//     if (form.checkValidity()){
+//         e.preventDefault(); 
+//         // createProject(formMehthods.getInfoFromInput(titleInput));
+//         // domManipulation.addProjectInSideBar(formMehthods.getInfoFromInput(titleInput));
+//         domManipulation.closeModal(modalContainer);
+//         formMehthods.resetInput(titleInput);
+//     }
+// })
 
 projectDivs.forEach((projectDiv) => {
     projectDiv.addEventListener('click', () => {
@@ -42,5 +43,16 @@ projectDivs.forEach((projectDiv) => {
         domManipulation.clearTodoDiv();
         domManipulation.showProjectTitle(projectDiv.textContent);
         domManipulation.showProjectTasks(todosOfProject);
+        domManipulation.removeStylefromNotSelected(projectDivs);
+        domManipulation.addStyleforselected(projectDiv, "rgb(218, 159, 252)");
     })
 }) 
+
+domManipulation.clickFirstProjectOnload();
+
+addOptions.forEach((addOption) => {
+    addOption.addEventListener('click', () => {
+        domManipulation.removeStylefromNotSelected(addOptions);
+        domManipulation.addStyleforselected(addOption, "white");
+    })
+})
