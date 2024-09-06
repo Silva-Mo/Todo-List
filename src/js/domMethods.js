@@ -1,3 +1,6 @@
+import { task } from "./todos";
+import * as formElements from "./formDomElements";
+
 const showModal = (modalContainer) => {
     modalContainer.style.display = "flex";
 }
@@ -43,9 +46,47 @@ const showProjectTitle = ((projectTitle) => {
     projectTitleText.textContent = projectTitle;
 })
 
-const addFormToModal = ((option) => {
-    //
-})
+// const showOptionFormInModal = ((option) => {
+//     const taskForm = document.querySelector('form#add-task')
+//     const projectForm = document.querySelector('form#add-project');
+//     const forms = [taskForm, projectForm];
+//     forms.forEach((form) => {
+//         form.style.display = "none";
+//     }) 
+//     if (option === "Task"){
+//         taskForm.style.display = "flex";
+//     }
+//     else if (option === "Project"){
+//         projectForm.style.display = "flex"
+//     }
+// })
+
+
+const updateModalForm = (option) => {
+    const formElement = document.querySelector('form');
+    const submitBtn = document.querySelector('button.submit');
+    const resetBtn = document.querySelector('button.reset');
+
+    if (option === "Task"){
+        formElement.setAttribute('id', 'add-task');
+
+        const taskFormEelemnts = formElements.createTaskForm();
+        const submitContainer = document.querySelector('.submit_container');
+        for (let index = 0; index < taskFormEelemnts.length; index++) {
+            formElement.insertBefore(taskFormEelemnts[index], submitContainer);
+        }
+
+        submitBtn.setAttribute('form', 'add-task');
+    }
+    else if (option === "Project"){
+        projectForm.style.display = "flex"
+    }
+}
+
+const clickFirstModalOptionOnLoad = () => {
+    const firstOption = document.querySelector('.modal-sidebar').firstElementChild;
+    firstOption.click();
+}
 
 const clickFirstProjectOnload = () => {
     const firstProjcet = document.querySelector('.default-projects-container').firstElementChild;
@@ -65,5 +106,6 @@ const removeStylefromNotSelected = ((elements) => {
 })
 
 export {showModal, closeModal,addProjectInSideBar, showProjectTasks, clearTodoDiv, 
-    showProjectTitle, clickFirstProjectOnload, addStyleforselected, removeStylefromNotSelected
+    showProjectTitle, clickFirstProjectOnload, addStyleforselected, removeStylefromNotSelected, 
+    updateModalForm, clickFirstModalOptionOnLoad
 };

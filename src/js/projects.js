@@ -22,4 +22,11 @@ const indexTodosValue = ((projectIndex) => {
     return projectTasks;
 })
 
-export {addProject, projectIndexNum, indexTodosValue};
+let currentProject = null;
+
+const changeCurrentProject = ((projectClicked) => {
+    currentProject = projectClicked;
+})
+
+
+export {addProject, projectIndexNum, indexTodosValue, changeCurrentProject};

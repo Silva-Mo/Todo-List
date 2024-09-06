@@ -23,7 +23,7 @@ add.addEventListener('click', () => {
 
 closeModalBtn.addEventListener('click', () => {
     domManipulation.closeModal(modalContainer);
-    // formMehthods.resetInput(titleInput);
+    formMehthods.resetInput(titleInput);
 })
 
 // submitBtn.addEventListener('click', (e) => {
@@ -51,8 +51,12 @@ projectDivs.forEach((projectDiv) => {
 domManipulation.clickFirstProjectOnload();
 
 addOptions.forEach((addOption) => {
-    addOption.addEventListener('click', () => {
+    addOption.addEventListener('click', (e) => {
         domManipulation.removeStylefromNotSelected(addOptions);
         domManipulation.addStyleforselected(addOption, "white");
+        const option = e.target.textContent;
+        domManipulation.updateModalForm(option);
     })
 })
+
+domManipulation.clickFirstModalOptionOnLoad();
