@@ -83,4 +83,10 @@ const createTaskForm = () => {
     return [taskTitle, taskDescription, taskDueDate, taskPriority];
 }
 
-export {createTaskForm}
+const createProjectForm = () => {
+    const projectTitle = createInput('Title:', 'text', 'project-title', 'project-title', true, "0", "20")
+    return [projectTitle];
+}
+
+
+export {createTaskForm, createProjectForm}

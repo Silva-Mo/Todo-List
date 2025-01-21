@@ -62,10 +62,22 @@ const showProjectTitle = ((projectTitle) => {
 // })
 
 
+const checkForFormNameIfEqualsOption = (form, option) => {
+    if (form.getAttribute("id")){
+        const optionName = form.getAttribute("id").slice(4);
+        const optionNameCapilizedFirstLetter = optionName.charAt(0).toUpperCase() + optionName.slice(1);
+        if (option === optionNameCapilizedFirstLetter){
+            return true;
+        }
+    }
+}
+
 const updateModalForm = (option) => {
     const formElement = document.querySelector('form');
     const submitBtn = document.querySelector('button.submit');
     const resetBtn = document.querySelector('button.reset');
+
+    removeFormChildren(formElement);
 
     if (option === "Task"){
         formElement.setAttribute('id', 'add-task');
@@ -79,7 +91,14 @@ const updateModalForm = (option) => {
         submitBtn.setAttribute('form', 'add-task');
     }
     else if (option === "Project"){
-        projectForm.style.display = "flex"
+        formElement.setAttribute('id', 'add-project');
+        const projectFormElements = formElements.createProjectForm();
+        const submitContainer = document.querySelector('.submit_container');
+        for (let index = 0; index < projectFormElements.length; index++) {
+            formElement.insertBefore(projectFormElements[index], submitContainer);
+        }
+
+        submitBtn.setAttribute('form', 'add-project');
     }
 }
 
@@ -105,7 +124,15 @@ const removeStylefromNotSelected = ((elements) => {
     })
 })
 
+const removeFormChildren = (form) => {  
+    for (let index = 0; index < form.childNodes.length; index++) {
+        if (form.firstElementChild && form.firstElementChild.className !== "submit_container"){
+            form.removeChild(form.firstElementChild);
+        }
+    }
+}
+
 export {showModal, closeModal,addProjectInSideBar, showProjectTasks, clearTodoDiv, 
     showProjectTitle, clickFirstProjectOnload, addStyleforselected, removeStylefromNotSelected, 
-    updateModalForm, clickFirstModalOptionOnLoad
+    updateModalForm, clickFirstModalOptionOnLoad, checkForFormNameIfEqualsOption
 };

@@ -10,7 +10,6 @@ defaults.addDefaultProjects();
 const add = document.querySelector('.add-container');
 const submitBtn = document.querySelector('.submit');
 const modalContainer = document.querySelector('.modal-container');
-const titleInput = document.querySelector('input');
 const form = document.querySelector('form');
 const closeModalBtn = document.querySelector('.close img');
 const projectDivs = document.querySelectorAll('.project-div');
@@ -22,8 +21,11 @@ add.addEventListener('click', () => {
 })
 
 closeModalBtn.addEventListener('click', () => {
+    const currentFormInputs = document.querySelectorAll('form input');
     domManipulation.closeModal(modalContainer);
-    formMehthods.resetInput(titleInput);
+    currentFormInputs.forEach((input) => {
+        formMehthods.resetInput(input);
+    })
 })
 
 // submitBtn.addEventListener('click', (e) => {
@@ -55,7 +57,13 @@ addOptions.forEach((addOption) => {
         domManipulation.removeStylefromNotSelected(addOptions);
         domManipulation.addStyleforselected(addOption, "white");
         const option = e.target.textContent;
-        domManipulation.updateModalForm(option);
+        if (domManipulation.checkForFormNameIfEqualsOption(form, option)){
+            return;
+        }
+        else{
+            
+            domManipulation.updateModalForm(option);   
+        }
     })
 })
 
