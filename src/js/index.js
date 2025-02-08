@@ -1,9 +1,10 @@
 import '../css/normalize.css';
 import '../css/styles.css';
-import {addProject as createProject, projectIndexNum, indexTodosValue} from "./projects.js";
+import {addProject as createProject, projectIndexNum, indexTodosValue, changeCurrentProject, addTasktoProject} from "./projects.js";
 import * as domManipulation from './domMethods.js';
 import * as formMehthods from './formMethods.js';
 import * as defaults from './defaultTodo.js';
+import {task as createTask} from "./todos.js";
 
 defaults.addDefaultProjects();
 
@@ -14,6 +15,7 @@ const form = document.querySelector('form');
 const closeModalBtn = document.querySelector('.close img');
 const projectDivs = document.querySelectorAll('.project-div');
 const addOptions = document.querySelectorAll('.modal-sidebar h3');
+const clearFormBtn = document.querySelector('.reset');
 
 
 add.addEventListener('click', () => {
@@ -21,28 +23,27 @@ add.addEventListener('click', () => {
 })
 
 closeModalBtn.addEventListener('click', () => {
-    const currentFormInputs = document.querySelectorAll('form input');
     domManipulation.closeModal(modalContainer);
-    currentFormInputs.forEach((input) => {
-        formMehthods.resetInput(input);
-    })
 })
 
-// submitBtn.addEventListener('click', (e) => {
-//     if (form.checkValidity()){
-//         e.preventDefault(); 
-//         // createProject(formMehthods.getInfoFromInput(titleInput));
-//         // domManipulation.addProjectInSideBar(formMehthods.getInfoFromInput(titleInput));
-//         domManipulation.closeModal(modalContainer);
-//         formMehthods.resetInput(titleInput);
-//     }
-// })
+submitBtn.addEventListener('click', (e) => {
+    if (form.checkValidity()){
+        e.preventDefault(); 
+        if (submitBtn.getAttribute('form') === 'add-task'){
+            const taskData = createTask(formMehthods.dataOfFormSubmitted());
+            addTasktoProject(taskData);
+            domManipulation.showProjectTasks();
+            domManipulation.resetForm();
+            domManipulation.closeModal(modalContainer);
+        }
+    }
+})
 
 projectDivs.forEach((projectDiv) => {
     projectDiv.addEventListener('click', () => {
-        const projectIndex = projectIndexNum(projectDiv.textContent);
-        const todosOfProject = indexTodosValue(projectIndex);
-        domManipulation.clearTodoDiv();
+        const projectIndex = projectDiv.getAttribute("id");
+        changeCurrentProject(projectIndex);
+        const todosOfProject = indexTodosValue();
         domManipulation.showProjectTitle(projectDiv.textContent);
         domManipulation.showProjectTasks(todosOfProject);
         domManipulation.removeStylefromNotSelected(projectDivs);
@@ -61,10 +62,13 @@ addOptions.forEach((addOption) => {
             return;
         }
         else{
-            
             domManipulation.updateModalForm(option);   
         }
     })
+})
+
+clearFormBtn.addEventListener('click', () => {
+    domManipulation.resetForm();
 })
 
 domManipulation.clickFirstModalOptionOnLoad();

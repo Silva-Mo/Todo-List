@@ -46,7 +46,7 @@ const createInput = (labelTxt ,inputType, inputName, inputId, isRequired, minlen
         containerDiv.appendChild(label);
     }
     else{
-       containerDiv.appendChild(label);
+        containerDiv.appendChild(label);
         containerDiv.appendChild(input); 
     }
     
@@ -75,18 +75,25 @@ const createPriorityRadioInput = () => {
 }
 
 const createTaskForm = () => {
-    const taskTitle = createInput('Title:', 'text', 'task-title', 'task-title', true, "0", "25");
-    const taskDescription = createInput('Description:', 'textarea', 'task-description', 'task-description', true, "0", "50");
-    const taskDueDate = createInput('Due Date:', 'date', 'task-dueDate', 'task-dueDate', true);
+    const taskTitle = createInput('Title:', 'text', 'task-title', 'task_title', true, "0", "30");
+    const taskDescription = createInput('Description:', 'textarea', 'task-description', 'task_description', true, "0", "100");
+    const taskDueDate = createInput('Due Date:', 'date', 'task-dueDate', 'task_dueDate', true);
     const taskPriority = createPriorityRadioInput();
 
     return [taskTitle, taskDescription, taskDueDate, taskPriority];
 }
 
 const createProjectForm = () => {
-    const projectTitle = createInput('Title:', 'text', 'project-title', 'project-title', true, "0", "20")
+    const projectTitle = createInput('Title:', 'text', 'project-title', 'project-title', true, "0", "30")
     return [projectTitle];
 }
 
+const createNotesForm = () => {
+    const NoteTitle = createInput('Title:', 'text', 'note-title', 'note-title', true, "0", "30");
+    const NoteDetails = createInput("Details:", 'textarea', 'note-detail', 'note-detail', true, "0", "300");
 
-export {createTaskForm, createProjectForm}
+    return [NoteTitle, NoteDetails];
+}
+
+
+export {createTaskForm, createProjectForm, createNotesForm}

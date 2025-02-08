@@ -11,22 +11,24 @@ const addProject = (title) => {
     console.log(projects);
 }
 
-const projectIndexNum = ((title) => {
-    const indexNum = projects.findIndex((element) => element.title === title);
-    return indexNum;
-})
-
-const indexTodosValue = ((projectIndex) => {
-    const projectTasks = projects[projectIndex].todos;
-    console.log(projectTasks);
+const indexTodosValue = (() => {
+    const projectTasks = projects[currentProject].todos;
     return projectTasks;
 })
 
 let currentProject = null;
 
-const changeCurrentProject = ((projectClicked) => {
-    currentProject = projectClicked;
+const changeCurrentProject = ((indexOfProjectClicked) => {
+    currentProject = indexOfProjectClicked;
+    console.log(currentProject);
 })
 
+const addTasktoProject = (taskData) => {
+    projects[currentProject].todos.push(taskData);
+}
 
-export {addProject, projectIndexNum, indexTodosValue, changeCurrentProject};
+const getCurrentProject = () => {
+    return currentProject;
+}
+
+export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject};

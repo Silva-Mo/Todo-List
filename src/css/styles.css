@@ -118,7 +118,7 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
-    height: 466px;
+    height: 500px;
     background-image: url(../imgs/modalProject.svg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -169,6 +169,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    border-radius: 0 0 0 7px;
 }
 
 .modal-sidebar h3{
@@ -244,19 +245,17 @@ body {
 
 .add-modal textarea{
     font-size: 1.2rem;
-    height: 50px;
+    height: 80px;
     width: 80%;
     background-color: transparent;
-    border: none;
+    border: 2px solid var(--color-white);
     color: var(--color-white);
-    border-bottom: 2px solid var(--color-white);
     resize: none;
+    border-radius: 15px;
 }
 
 .input-container:focus, input:focus, textarea:focus{
-    outline: 2px solid white;
-    border-radius: 7px;
-    border-bottom: 2px solid transparent;
+    outline: none;
 }
 
 .add-modal input[type="date"]:focus{
@@ -428,6 +427,13 @@ input[type="radio"]:checked+label[for="high"] {
     background-color: rgb(255, 56, 42);
 }
 
+form[id="add-note"] textarea{
+    height: 160px;
+}
+
+form[id="add-note"] label{
+    align-self: flex-start;
+}
 
 
 

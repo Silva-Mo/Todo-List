@@ -1,5 +1,8 @@
 import { task } from "./todos";
 import * as formElements from "./formDomElements";
+import * as formMehthods from "./formMethods";
+import * as todoElements from "./todoElements";
+import { indexTodosValue } from "./projects";
 
 const showModal = (modalContainer) => {
     modalContainer.style.display = "flex";
@@ -15,6 +18,7 @@ const addProjectInSideBar = (title) => {
     projectDiv.classList.add('project-div');
     projectDiv.textContent = title;
     projectsContainer.appendChild(projectDiv);
+    assignIdtoProjectElement();
 }
 
 const clearTodoDiv = () => {
@@ -25,16 +29,16 @@ const clearTodoDiv = () => {
 }
 
 const showProjectTasks = (projectTodos) => {
+    clearTodoDiv();
     const todosContainerDiv = document.querySelector('#todos-container .todos div');
     const projectTasksText = document.createElement('h2');
     projectTasksText.classList.add('project-tasks-txt');
 
     if (projectTodos == 0){
-        console.log("yes")
         projectTasksText.textContent = "There are no tasks added here!";
     }
     else {
-        return;
+        generateTasksOfProjectinDOM();
     }
     
 
@@ -46,20 +50,6 @@ const showProjectTitle = ((projectTitle) => {
     projectTitleText.textContent = projectTitle;
 })
 
-// const showOptionFormInModal = ((option) => {
-//     const taskForm = document.querySelector('form#add-task')
-//     const projectForm = document.querySelector('form#add-project');
-//     const forms = [taskForm, projectForm];
-//     forms.forEach((form) => {
-//         form.style.display = "none";
-//     }) 
-//     if (option === "Task"){
-//         taskForm.style.display = "flex";
-//     }
-//     else if (option === "Project"){
-//         projectForm.style.display = "flex"
-//     }
-// })
 
 
 const checkForFormNameIfEqualsOption = (form, option) => {
@@ -100,6 +90,16 @@ const updateModalForm = (option) => {
 
         submitBtn.setAttribute('form', 'add-project');
     }
+    else if (option === "Note"){
+        formElement.setAttribute('id', 'add-note');
+        const projectFormElements = formElements.createNotesForm();
+        const submitContainer = document.querySelector('.submit_container');
+        for (let index = 0; index < projectFormElements.length; index++) {
+            formElement.insertBefore(projectFormElements[index], submitContainer);
+        }
+
+        submitBtn.setAttribute('form', 'add-note');
+    }
 }
 
 const clickFirstModalOptionOnLoad = () => {
@@ -132,7 +132,34 @@ const removeFormChildren = (form) => {
     }
 }
 
-export {showModal, closeModal,addProjectInSideBar, showProjectTasks, clearTodoDiv, 
+const resetForm = () => {
+    const inputsOfForm = document.querySelectorAll('form input');
+    const textareasOfForm = document.querySelectorAll ('form textarea');
+    const arrayOfAllelementsOfForm = Array.from(inputsOfForm).concat(Array.from(textareasOfForm));
+    arrayOfAllelementsOfForm.forEach((element) => {
+        formMehthods.resetInput(element);
+    })
+}
+
+const assignIdtoProjectElement = () => {
+    const projectDivs = document.querySelectorAll(".project-div");
+    let indexNum = 0;
+    projectDivs.forEach((projectDiv) => {
+        projectDiv.setAttribute("id", `${indexNum}`)
+        indexNum += 1;
+    })
+}
+
+const generateTasksOfProjectinDOM = () => {
+    const tasksContainer = document.querySelector('.todos div');
+    const tasksOfProject = indexTodosValue();
+    tasksOfProject.forEach((task) => {
+        const taskElement = todoElements.createTaskElement(task);
+        tasksContainer.appendChild(taskElement);
+    })
+}
+
+export {showModal, closeModal,addProjectInSideBar, showProjectTasks, 
     showProjectTitle, clickFirstProjectOnload, addStyleforselected, removeStylefromNotSelected, 
-    updateModalForm, clickFirstModalOptionOnLoad, checkForFormNameIfEqualsOption
+    updateModalForm, clickFirstModalOptionOnLoad, checkForFormNameIfEqualsOption, resetForm
 };
