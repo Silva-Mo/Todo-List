@@ -27,8 +27,4 @@ const addTasktoProject = (taskData) => {
     projects[currentProject].todos.push(taskData);
 }
 
-const getCurrentProject = () => {
-    return currentProject;
-}
-
 export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject};

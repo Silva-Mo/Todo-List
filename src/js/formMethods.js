@@ -28,11 +28,13 @@ const dataOfFormSubmitted = () => {
 
 
 const resetInput = (input) => {
-    if (input.getAttribute('name', 'priority')){
+    console.log(input);
+    if (input.getAttribute('name') === "priority"){
         input.checked = false;
     }
-    input.value = "";
-    
+    else {
+        input.value = "";  
+    }
 }
 
 export {resetInput, dataOfFormSubmitted};

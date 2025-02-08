@@ -369,11 +369,12 @@ div.submit_container button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 90%;
     height: 90%;
     background-color: rgba(0, 0, 0, 0.288);
     border-radius: 7px;
     font-size: 1.3rem;
+    padding: 20px;
 }
 
 .radio-container{
@@ -433,6 +434,17 @@ form[id="add-note"] textarea{
 
 form[id="add-note"] label{
     align-self: flex-start;
+}
+
+div.task-div {
+    height: 50px;
+    width: 85%;
+    background-color: rgba(212, 212, 212, 0.918);
+    color: rgb(49, 49, 49);
+    border-radius: 2px;
+    outline: 1px solid rgb(71, 71, 71);
+    display: flex;
+    flex-direction: row;
 }
 
 
