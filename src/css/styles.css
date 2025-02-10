@@ -371,10 +371,11 @@ div.submit_container button:active {
     align-items: center;
     width: 90%;
     height: 90%;
-    background-color: rgba(0, 0, 0, 0.288);
+    background-color: rgba(0, 0, 0, 0.219);
     border-radius: 7px;
     font-size: 1.3rem;
     padding: 20px;
+    gap: 20px;
 }
 
 .radio-container{
@@ -437,14 +438,38 @@ form[id="add-note"] label{
 }
 
 div.task-div {
-    height: 50px;
+    height: 60px;
     width: 85%;
-    background-color: rgba(212, 212, 212, 0.918);
-    color: rgb(49, 49, 49);
-    border-radius: 2px;
-    outline: 1px solid rgb(71, 71, 71);
+    background-color: rgba(0, 0, 0, 0.233);
+    color: rgb(255, 255, 255);
+    border-radius: 7px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.726);
+}
+
+div.task-div div {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+div.task-div img{
+    height: 30px;
+    margin-bottom: 2px;
+}
+
+div.task-div img:first-of-type{
+    margin-bottom: 4px;
+}
+
+div.task-div button{
+    background-color: transparent;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 4px;
+    color: white;
 }
 
 

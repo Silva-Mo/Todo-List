@@ -153,10 +153,12 @@ const assignIdtoProjectElement = () => {
 const generateTasksOfProjectinDOM = () => {
     const tasksContainer = document.querySelector('.todos div');
     const tasksOfProject = indexTodosValue();
-    tasksOfProject.forEach((task) => {
+    for (let index = 0; index < tasksOfProject.length; index++) {
+        const task  = tasksOfProject[index];
         const taskElement = todoElements.createTaskElement(task);
+        taskElement.setAttribute('id', `${index}`);
         tasksContainer.appendChild(taskElement);
-    })
+    }
 }
 
 export {showModal, closeModal,addProjectInSideBar, showProjectTasks, 

@@ -6,13 +6,13 @@ const createTaskElement = (taskData) => {
     taskDiv.classList.add('task-div');
     
     if (taskData.priority === "low"){
-        taskDiv.style.borderLeft = "6px solid rgb(40, 238, 0)";
+        taskDiv.style.borderLeft = "4px solid rgb(40, 238, 0)";
     }
     else if (taskData.priority === "medium"){
-        taskDiv.style.borderLeft = "6px solid rgb(251, 255, 31)";
+        taskDiv.style.borderLeft = "4px solid rgb(251, 255, 31)";
     }
     else if (taskData.priority === "high"){
-        taskDiv.style.borderLeft = "6px solid rgb(227, 0, 0)";
+        taskDiv.style.borderLeft = "4px solid rgb(227, 0, 0)";
     }
 
     const doneCheckBox = document.createElement('input');
@@ -27,12 +27,27 @@ const createTaskElement = (taskData) => {
     editImage.src = editImg;
     deleteImage.src = deleteImg;
 
+    isChecked(doneCheckBox);
+
     const arrayOfElements = [doneCheckBox, titleDiv, detailsBtn, editImage, deleteImage]
     arrayOfElements.forEach((element) => {
         taskDiv.appendChild(element);
     })
 
     return taskDiv;
+}
+
+const isChecked = (checkbox) => {
+    let flagOfChecking = null;
+    checkbox.addEventListener('click', () => {
+        if (checkbox.checked === true){
+            flagOfChecking = "checked";
+        }
+        else if(checkbox.checked === false){
+            flagOfChecking = "unchecked";
+        }
+        console.log(flagOfChecking);
+    })
 }
 
 
