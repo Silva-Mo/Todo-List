@@ -440,14 +440,29 @@ form[id="add-note"] label{
 div.task-div {
     height: 60px;
     width: 85%;
-    background-color: rgba(0, 0, 0, 0.233);
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #3bb162 0%, #b61dac 46%, #3f5a8b 100%);
     color: rgb(255, 255, 255);
     border-radius: 7px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.726);
+    transition: 0.1s;
+}
+
+div.task-div:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.76);
+}
+
+div.task-div[data-status="checked"] {
+    background-color: #1b1b1b71;
+    background-image: none;
+}
+
+div.task-div[data-status="checked"] > div {
+    text-decoration: line-through;
 }
 
 div.task-div div {

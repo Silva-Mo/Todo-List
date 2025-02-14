@@ -27,4 +27,14 @@ const addTasktoProject = (taskData) => {
     projects[currentProject].todos.push(taskData);
 }
 
-export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject};
+const changeTaskStatus = (taskIndex, checkboxStatus) => {
+    if(checkboxStatus === "checked"){
+        projects[currentProject].todos[taskIndex].status = "done"; 
+    }
+    else if (checkboxStatus === "unchecked"){
+        projects[currentProject].todos[taskIndex].status = "undone"; 
+    }
+    console.log(projects[currentProject].todos);
+}
+
+export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, changeTaskStatus};

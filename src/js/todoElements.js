@@ -1,9 +1,12 @@
 import editImg from '../imgs/edit.svg';
 import deleteImg from '../imgs/delete.svg';
+import { changeTaskStatus } from './projects';
+import { task } from './todos';
 
 const createTaskElement = (taskData) => {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task-div');
+    taskDiv.setAttribute('data-status', 'unchecked');
     
     if (taskData.priority === "low"){
         taskDiv.style.borderLeft = "4px solid rgb(40, 238, 0)";
@@ -27,7 +30,21 @@ const createTaskElement = (taskData) => {
     editImage.src = editImg;
     deleteImage.src = deleteImg;
 
-    isChecked(doneCheckBox);
+    let statusOfCheckbox;
+
+    doneCheckBox.addEventListener('click', (e) => {
+        statusOfCheckbox = isChecked(doneCheckBox);
+        const taskIndex =  e.target.parentNode.getAttribute("id");
+        changeTaskStatus(taskIndex, statusOfCheckbox);
+
+        if (statusOfCheckbox === "checked"){
+            taskDiv.setAttribute('data-status', "checked");
+        }
+        else if (statusOfCheckbox === "unchecked"){
+            taskDiv.setAttribute('data-status', "unchecked");
+        }
+
+    })
 
     const arrayOfElements = [doneCheckBox, titleDiv, detailsBtn, editImage, deleteImage]
     arrayOfElements.forEach((element) => {
@@ -37,18 +54,17 @@ const createTaskElement = (taskData) => {
     return taskDiv;
 }
 
+let flagOfChecking = null;
+
 const isChecked = (checkbox) => {
-    let flagOfChecking = null;
-    checkbox.addEventListener('click', () => {
         if (checkbox.checked === true){
             flagOfChecking = "checked";
         }
         else if(checkbox.checked === false){
             flagOfChecking = "unchecked";
         }
-        console.log(flagOfChecking);
-    })
+        return flagOfChecking ;
 }
 
 
-export {createTaskElement}
+export {createTaskElement, isChecked}

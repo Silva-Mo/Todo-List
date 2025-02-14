@@ -23,8 +23,6 @@ const addProjectInSideBar = (title) => {
 
 const clearTodoDiv = () => {
     const todosContainerDiv = document.querySelector('#todos-container .todos div');
-    const projectTilte = document.querySelector('#todos-container h1');
-    projectTilte.textContent = "";
     todosContainerDiv.textContent = "";
 }
 
@@ -46,6 +44,7 @@ const showProjectTasks = (projectTodos) => {
 }
 
 const showProjectTitle = ((projectTitle) => {
+    
     const projectTitleText = document.querySelector('#todos-container h1');
     projectTitleText.textContent = projectTitle;
 })
