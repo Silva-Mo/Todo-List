@@ -37,4 +37,8 @@ const changeTaskStatus = (taskIndex, checkboxStatus) => {
     console.log(projects[currentProject].todos);
 }
 
-export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, changeTaskStatus};
+const getTaskDetails = (taskIndex) => {
+    return [projects[currentProject].title,projects[currentProject].todos[taskIndex]];
+}
+
+export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, changeTaskStatus, getTaskDetails};

@@ -4,8 +4,19 @@ import * as formMehthods from "./formMethods";
 import * as todoElements from "./todoElements";
 import { indexTodosValue } from "./projects";
 
-const showModal = (modalContainer) => {
+const showModal = (modalContainer, choiceOfModal) => {
+    const addModal = document.querySelector('.add-modal');
+    const detailsModal = document.querySelector('.details-modal');
+
     modalContainer.style.display = "flex";
+        if (choiceOfModal === "add"){
+            addModal.style.display = "flex";
+            detailsModal.style.display = "none";
+        }
+        else if (choiceOfModal === "details"){
+            addModal.style.display = "none";
+            detailsModal.style.display = "flex";
+        }
 }
 
 const closeModal = (modalContainer) => {

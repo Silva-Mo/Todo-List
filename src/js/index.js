@@ -12,18 +12,20 @@ const add = document.querySelector('.add-container');
 const submitBtn = document.querySelector('.submit');
 const modalContainer = document.querySelector('.modal-container');
 const form = document.querySelector('form');
-const closeModalBtn = document.querySelector('.close img');
+const closeModalBtn = document.querySelectorAll('.close img');
 const projectDivs = document.querySelectorAll('.project-div');
 const addOptions = document.querySelectorAll('.modal-sidebar h3');
 const clearFormBtn = document.querySelector('.reset');
 
 
 add.addEventListener('click', () => {
-    domManipulation.showModal(modalContainer);
+    domManipulation.showModal(modalContainer, "add");
 })
 
-closeModalBtn.addEventListener('click', () => {
+closeModalBtn.forEach((btn) => {
+    btn.addEventListener('click', () => {
     domManipulation.closeModal(modalContainer);
+})
 })
 
 submitBtn.addEventListener('click', (e) => {

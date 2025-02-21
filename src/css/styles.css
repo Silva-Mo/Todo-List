@@ -111,21 +111,34 @@ body {
 }
 
 
-.add-modal {
-    display: flex;
+.add-modal, .details-modal {
+    display: none;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
-    height: 500px;
-    background-image: url(../imgs/modalProject.svg);
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 7px;
     flex-direction: column;
     justify-content: space-between;
     animation: popup 0.3s;
+}
+
+.add-modal{ 
+    width: 60%;
+    height: 500px;
+    background-image: url(../imgs/modalProject.svg);
+}
+
+.details-modal {
+    flex-direction: column-reverse;
+    width: 40%;
+    min-width: 350px;
+    background-image: url(../imgs/modalTask.svg);
+    padding: 10px;
+    text-shadow: 0px 0px 10px black;
+    font-size: 1.2rem;
 }
 
 @keyframes popup {
@@ -485,6 +498,15 @@ div.task-div button{
     border: 2px solid rgb(255, 255, 255);
     border-radius: 4px;
     color: white;
+}
+
+.details-content{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.details-content h1{
+    margin-top: 0;
 }
 
 
