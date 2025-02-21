@@ -3,6 +3,7 @@ import deleteImg from '../imgs/delete.svg';
 import { changeTaskStatus, getTaskDetails } from './projects';
 import { task } from './todos';
 import { showModal } from './domMethods';
+import {format} from "date-fns";
 
 const createTaskElement = (taskData) => {
     const taskDiv = document.createElement('div');
@@ -22,12 +23,16 @@ const createTaskElement = (taskData) => {
     const doneCheckBox = document.createElement('input');
     const titleDiv = document.createElement('div');
     const detailsBtn = document.createElement('button');
+    const dueDateDiv = document.createElement('div');
     const editImage = document.createElement('img');
     const deleteImage = document.createElement('img');
 
     doneCheckBox.setAttribute("type","checkbox");
+    titleDiv.classList.add("task-title-div");
+
     titleDiv.textContent = taskData.title;
     detailsBtn.textContent = "Details";
+    dueDateDiv.textContent = format(taskData.dueDate,"LLL do");
     editImage.src = editImg;
     deleteImage.src = deleteImg;
 
@@ -54,7 +59,7 @@ const createTaskElement = (taskData) => {
         showModal(modalContainer, "details");
     })
 
-    const arrayOfElements = [doneCheckBox, titleDiv, detailsBtn, editImage, deleteImage]
+    const arrayOfElements = [doneCheckBox, titleDiv, detailsBtn, dueDateDiv,editImage, deleteImage]
     arrayOfElements.forEach((element) => {
         taskDiv.appendChild(element);
     })
@@ -88,7 +93,7 @@ const createDetailsModal = (taskDetials) => {
     titleH1.textContent = taskDetials[1].title;
     projectNameH3.textContent = `Project: ${taskDetials[0]}`;
     priorityH3.textContent = `Priority: ${taskDetials[1].priority}`;
-    dueDateH3.textContent = `Due Date: ${taskDetials[1].dueDate}`;
+    dueDateH3.textContent = `Due Date: ${format(taskDetials[1].dueDate,"PPP")}`;
     descriptionH3.textContent = `Description: ${taskDetials[1].description}`;
 
     const arrayOfElements = [titleH1, projectNameH3, priorityH3, priorityH3, dueDateH3, descriptionH3];
