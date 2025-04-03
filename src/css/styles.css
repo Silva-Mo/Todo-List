@@ -12,6 +12,12 @@
     font-family: var(--regular-font-family);
 }
 
+::selection {
+    background-color: #222;
+    color: white;
+
+}
+
 *, *::after, *::before{
     box-sizing: border-box;
 }
@@ -19,7 +25,7 @@
 
 body {
     min-height: 100vh;
-    background-image: url(../imgs/background.svg);
+    background-image: url(../imgs/background1.svg);
     background-size: cover;
     background-repeat: no-repeat;
     flex-direction: column;
@@ -111,7 +117,7 @@ body {
 }
 
 
-.add-modal, .details-modal {
+.add-modal, .details-modal, .edit-modal {
     display: none;
     position: absolute;
     left: 50%;
@@ -128,18 +134,25 @@ body {
 .add-modal{ 
     width: 60%;
     height: 500px;
-    background-image: url(../imgs/modalProject.svg);
+    background-image: url(../imgs/background2.svg);
 }
 
 .details-modal {
     flex-direction: column-reverse;
     width: 40%;
     min-width: 350px;
-    background-image: url(../imgs/modalTask.svg);
+    background-image: url(../imgs/background3.svg);
     padding: 10px;
     text-shadow: 0px 0px 10px black;
     font-size: 1.2rem;
 }
+
+.edit-modal{
+    width: 40%;
+    height: 500px;
+    background-image: url(../imgs/background4.svg);
+}
+
 
 @keyframes popup {
     0%{
@@ -151,7 +164,7 @@ body {
     }
 }
 
-.add-modal .modal-header{
+.add-modal .modal-header, .edit-modal .modal-header{
     padding: 7px;
     display: flex;
     align-items: center;
@@ -163,12 +176,12 @@ body {
     border-bottom: 2px solid rgba(0, 0, 0, 0.151);
 }
 
-.add-modal .modal-header h1{
+.add-modal .modal-header h1, .edit-modal .modal-header h1{
     margin: 0;   
     margin-left: 5px;
 }
 
-.add-modal .modal-content{
+.add-modal .modal-content, .edit-modal .modal-content{
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
@@ -197,7 +210,7 @@ body {
     transform: scale(1.05);
 }
 
-.add-modal form{
+.add-modal form, .edit-modal form{
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -210,13 +223,13 @@ body {
     padding: 20px;
 }
 
-.add-modal form h1 {
+.add-modal form h1, .edit-modal form h1{
     min-height: 30px;
     font-size: 2rem;
     margin-top: 0;
 }
 
-.add-modal form .input-container{
+.add-modal form .input-container, .edit-modal form .input-container{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -225,12 +238,12 @@ body {
     width: 100%;
 }
 
-.add-modal form .date{
+.add-modal form .date, .edit-modal form .date{
     justify-content: flex-start;
     gap: 20px;
 }
 
-.add-modal input{
+.add-modal input, .edit-modal input{
     background-color: transparent;
     border: none;
     color: var(--color-white);
@@ -240,7 +253,7 @@ body {
     font-size: 1.3rem;
 }
 
-.add-modal input[type="date"]{
+.add-modal input[type="date"], .edit-modal input[type="date"]{
     border-radius: 7px;
     background-color: rgba(255, 255, 255, 0.822);
     color: black;
@@ -248,7 +261,7 @@ body {
     width: auto;
 }
 
-.add-modal input[type="radio"]{
+.add-modal input[type="radio"], .edit-modal input[type="radio"]{
     opacity: 0;
     width: 2rem;
     height: 1em;
@@ -256,7 +269,7 @@ body {
     position: absolute;
 }
 
-.add-modal textarea{
+.add-modal textarea, .edit-modal textarea{
     font-size: 1.2rem;
     height: 80px;
     width: 80%;
@@ -271,13 +284,13 @@ body {
     outline: none;
 }
 
-.add-modal input[type="date"]:focus{
+.add-modal input[type="date"]:focus, .edit-modal input[type="date"]:focus{
     outline: 2px solid black;
     border-radius: 7px;
     border-bottom: 2px solid transparent;
 }
 
-.add-modal label, .add-modal span{
+.add-modal label, .add-modal span, .edit-modal label, .edit-modal span{
     font-size: 1.7rem;
 }
 
@@ -406,17 +419,17 @@ div.submit_container button:active {
     text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.63);
 }
 
-.radio-container label[for="low"]{
+.radio-container label[for$="low"]{
     border: 2px solid rgb(0, 255, 0);
     color: rgb(0, 255, 0);
 }
 
-.radio-container label[for="medium"]{
+.radio-container label[for$="medium"]{
     border: 2px solid yellow;
     color: yellow;
 }
 
-.radio-container label[for="high"]{
+.radio-container label[for$="high"]{
     border: 2px solid rgb(255, 56, 42);
     color: rgb(255, 56, 42);
 }
@@ -430,15 +443,15 @@ input[type="radio"]:checked+label {
     text-shadow: none;
 }
 
-input[type="radio"]:checked+label[for="low"] {
+input[type="radio"]:checked+label[for$="low"] {
     background-color: rgb(0, 255, 0);
 }
 
-input[type="radio"]:checked+label[for="medium"] {
+input[type="radio"]:checked+label[for$="medium"] {
     background-color: yellow;
 }
 
-input[type="radio"]:checked+label[for="high"] {
+input[type="radio"]:checked+label[for$="high"] {
     background-color: rgb(255, 56, 42);
 }
 
@@ -498,6 +511,11 @@ div.task-div button{
     border: 2px solid rgb(255, 255, 255);
     border-radius: 4px;
     color: white;
+    transition: 0.2s;
+}
+
+div.task-div button:hover, div.task-div img:hover{
+    transform: scale(1.07);
 }
 
 .details-content{

@@ -1,8 +1,8 @@
-const dataOfFormSubmitted = () => {
+const dataOfFormSubmitted = (form) => {
     const objOfData = {};
 
-    const currentFormInputs = document.querySelectorAll('form input');
-    const currentFormTextareas = document.querySelectorAll('form textarea')
+    const currentFormInputs = document.querySelectorAll(`#${form.getAttribute('id')} input`);
+    const currentFormTextareas = document.querySelectorAll(`#${form.getAttribute('id')} textarea`)
 
     currentFormInputs.forEach((input) => {
         if (input.getAttribute("type") === "radio"){
@@ -28,7 +28,6 @@ const dataOfFormSubmitted = () => {
 
 
 const resetInput = (input) => {
-    console.log(input);
     if (input.getAttribute('name') === "priority"){
         input.checked = false;
     }

@@ -1,6 +1,6 @@
 import { resetInput } from "./formMethods";
 
-const createInput = (labelTxt ,inputType, inputName, inputId, isRequired, minlength = null, maxlength = null, value = null) => {
+const createInput = (labelTxt ,inputType, inputName, inputId, isRequired, minlength = null, maxlength = null, value = null, priorityType = null) => {
     const containerDiv = document.createElement('div');
 
     if (inputType === "radio"){
@@ -28,6 +28,17 @@ const createInput = (labelTxt ,inputType, inputName, inputId, isRequired, minlen
     
     input.setAttribute('name', `${inputName}`);
     input.setAttribute('id', `${inputId}`);
+
+    if (inputType === 'radio' && priorityType === 'add'){
+        label.setAttribute('for', `add-${inputId}`);
+        input.setAttribute('id', `add-${inputId}`);
+    }
+    else if (inputType === 'radio' && priorityType === 'edit'){
+        label.setAttribute('for', `edit-${inputId}`);
+        input.setAttribute('id', `edit-${inputId}`);
+    }
+
+
     if (isRequired === true){
         input.setAttribute('required', "true");
     }
@@ -53,7 +64,7 @@ const createInput = (labelTxt ,inputType, inputName, inputId, isRequired, minlen
     return containerDiv;
 }
 
-const createPriorityRadioInput = () => {
+const createPriorityRadioInput = (type) => {
     const containerDiv = document.createElement('div');
     containerDiv.classList.add('input-container');
     containerDiv.classList.add('priority');
@@ -62,9 +73,9 @@ const createPriorityRadioInput = () => {
     spanTxt.setAttribute('for', 'task-priority');
     spanTxt.textContent = "Priority:";
 
-    const optionLow =  createInput("Low", "radio", "priority", "low", false, null, null, "low");
-    const optionMedium =  createInput("Medium", "radio", "priority", "medium", true, null, null, "medium");
-    const optionHigh =  createInput("High", "radio", "priority", "high", false, null, null, "high");
+    const optionLow =  createInput("Low", "radio", "priority", "low", false, null, null, "low", type);
+    const optionMedium =  createInput("Medium", "radio", "priority", "medium", true, null, null, "medium", type);
+    const optionHigh =  createInput("High", "radio", "priority", "high", false, null, null, "high", type);
 
     containerDiv.appendChild(spanTxt);
     containerDiv.appendChild(optionLow);
@@ -74,12 +85,30 @@ const createPriorityRadioInput = () => {
     return containerDiv;
 }
 
-const createTaskForm = () => {
+const createTaskForm = (taskData = null) => {
     const taskTitle = createInput('Title:', 'text', 'task-title', 'task_title', true, "0", "30");
     const taskDescription = createInput('Description:', 'textarea', 'task-description', 'task_description', true, "0", "100");
     const taskDueDate = createInput('Due Date:', 'date', 'task-dueDate', 'task_dueDate', true);
-    const taskPriority = createPriorityRadioInput();
+    let taskPriority = createPriorityRadioInput('add');
 
+    if (taskData !== null){
+        taskPriority = createPriorityRadioInput('edit');
+        taskTitle.childNodes[1].value = taskData[1].title;
+        taskDescription.childNodes[1].value = taskData[1].description;
+        taskDueDate.childNodes[1].value = taskData[1].dueDate;
+        
+        if (taskData[1].priority === "low"){
+            taskPriority.childNodes[1].childNodes[0].checked = true;
+        }
+        else if (taskData[1].priority === "medium"){
+            taskPriority.childNodes[2].childNodes[0].checked = true;
+        }
+        else if (taskData[1].priority === "high"){
+            taskPriority.childNodes[3].childNodes[0].checked = true;
+        }
+
+    }
+    
     return [taskTitle, taskDescription, taskDueDate, taskPriority];
 }
 

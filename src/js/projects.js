@@ -16,7 +16,7 @@ const indexTodosValue = (() => {
     return projectTasks;
 })
 
-let currentProject = null;
+let currentProject = 0;
 
 const changeCurrentProject = ((indexOfProjectClicked) => {
     currentProject = indexOfProjectClicked;
@@ -27,11 +27,11 @@ const addTasktoProject = (taskData) => {
     projects[currentProject].todos.push(taskData);
 }
 
-const changeTaskStatus = (taskIndex, checkboxStatus) => {
-    if(checkboxStatus === "checked"){
+const changeTaskStatus = (taskIndex, previousTaskstatus) => {
+    if(previousTaskstatus === "undone"){
         projects[currentProject].todos[taskIndex].status = "done"; 
     }
-    else if (checkboxStatus === "unchecked"){
+    else if (previousTaskstatus === "done"){
         projects[currentProject].todos[taskIndex].status = "undone"; 
     }
     console.log(projects[currentProject].todos);
@@ -41,4 +41,14 @@ const getTaskDetails = (taskIndex) => {
     return [projects[currentProject].title,projects[currentProject].todos[taskIndex]];
 }
 
-export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, changeTaskStatus, getTaskDetails};
+const editTask = (taskIndex, taskNewData) =>{
+    const taskOfInterest = projects[currentProject].todos[taskIndex];
+    taskOfInterest.title = taskNewData.title;
+    taskOfInterest.description = taskNewData.description;
+    taskOfInterest.dueDate = taskNewData.dueDate;
+    taskOfInterest.priority = taskNewData.priority;
+}
+
+export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, 
+    changeTaskStatus, getTaskDetails, editTask
+};

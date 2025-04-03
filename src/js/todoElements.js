@@ -2,7 +2,7 @@ import editImg from '../imgs/edit.svg';
 import deleteImg from '../imgs/delete.svg';
 import { changeTaskStatus, getTaskDetails } from './projects';
 import { task } from './todos';
-import { showModal } from './domMethods';
+import { showModal, updateModalForm } from './domMethods';
 import {format} from "date-fns";
 
 const createTaskElement = (taskData) => {
@@ -30,23 +30,30 @@ const createTaskElement = (taskData) => {
     doneCheckBox.setAttribute("type","checkbox");
     titleDiv.classList.add("task-title-div");
 
+    if (isDone(taskData) === 'undone'){
+        taskDiv.setAttribute('data-status', "unchecked");
+        doneCheckBox.checked = false;
+    }
+    else if (isDone(taskData) === 'done'){
+        taskDiv.setAttribute('data-status', "checked");
+        doneCheckBox.checked = true;
+    }
+
     titleDiv.textContent = taskData.title;
     detailsBtn.textContent = "Details";
     dueDateDiv.textContent = format(taskData.dueDate,"LLL do");
     editImage.src = editImg;
     deleteImage.src = deleteImg;
 
-    let statusOfCheckbox;
-
+   
     doneCheckBox.addEventListener('click', (e) => {
-        statusOfCheckbox = isChecked(doneCheckBox);
         const taskIndex =  e.target.parentNode.getAttribute("id");
-        changeTaskStatus(taskIndex, statusOfCheckbox);
+        changeTaskStatus(taskIndex, isDone(taskData));
 
-        if (statusOfCheckbox === "checked"){
+        if (isDone(taskData) === "done"){
             taskDiv.setAttribute('data-status', "checked");
         }
-        else if (statusOfCheckbox === "unchecked"){
+        else if (isDone(taskData) === "undone"){
             taskDiv.setAttribute('data-status', "unchecked");
         }
 
@@ -59,6 +66,13 @@ const createTaskElement = (taskData) => {
         showModal(modalContainer, "details");
     })
 
+    editImage.addEventListener('click', (e) => {
+        const modalContainer = document.querySelector('.modal-container');
+        const taskIndex =  e.target.parentNode.getAttribute("id");
+        updateModalForm("Task", true, getTaskDetails(taskIndex));
+        showModal(modalContainer, "edit", taskIndex);
+    })
+
     const arrayOfElements = [doneCheckBox, titleDiv, detailsBtn, dueDateDiv,editImage, deleteImage]
     arrayOfElements.forEach((element) => {
         taskDiv.appendChild(element);
@@ -67,16 +81,13 @@ const createTaskElement = (taskData) => {
     return taskDiv;
 }
 
-let flagOfChecking = null;
-
-const isChecked = (checkbox) => {
-        if (checkbox.checked === true){
-            flagOfChecking = "checked";
-        }
-        else if(checkbox.checked === false){
-            flagOfChecking = "unchecked";
-        }
-        return flagOfChecking ;
+const isDone = (taskData) => {
+    if (taskData.status === "undone"){
+        return "undone";
+    }
+    else if(taskData.status === "done"){
+        return "done";
+    }
 }
 
 const createDetailsModal = (taskDetials) => {
@@ -110,4 +121,4 @@ const removeChildrenOfDetialsContent = (detailsContainerOfContent) => {
 }   
 
 
-export {createTaskElement, isChecked}
+export {createTaskElement, isDone}

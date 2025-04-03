@@ -4,18 +4,29 @@ import * as formMehthods from "./formMethods";
 import * as todoElements from "./todoElements";
 import { indexTodosValue } from "./projects";
 
-const showModal = (modalContainer, choiceOfModal) => {
+
+
+const showModal = (modalContainer, choiceOfModal, taskIndexOfEdit = null) => {
     const addModal = document.querySelector('.add-modal');
     const detailsModal = document.querySelector('.details-modal');
+    const editModal = document.querySelector('.edit-modal')
 
     modalContainer.style.display = "flex";
         if (choiceOfModal === "add"){
             addModal.style.display = "flex";
             detailsModal.style.display = "none";
+            editModal.style.display = "none";
         }
         else if (choiceOfModal === "details"){
             addModal.style.display = "none";
             detailsModal.style.display = "flex";
+            editModal.style.display = "none";
+        }
+        else if (choiceOfModal === "edit"){
+            addModal.style.display = "none";
+            detailsModal.style.display = "none";
+            editModal.style.display = "flex";
+            editModal.setAttribute('data-taskIndexToBeEdited', taskIndexOfEdit);
         }
 }
 
@@ -55,11 +66,9 @@ const showProjectTasks = (projectTodos) => {
 }
 
 const showProjectTitle = ((projectTitle) => {
-    
     const projectTitleText = document.querySelector('#todos-container h1');
     projectTitleText.textContent = projectTitle;
 })
-
 
 
 const checkForFormNameIfEqualsOption = (form, option) => {
@@ -72,44 +81,66 @@ const checkForFormNameIfEqualsOption = (form, option) => {
     }
 }
 
-const updateModalForm = (option) => {
-    const formElement = document.querySelector('form');
-    const submitBtn = document.querySelector('button.submit');
-    const resetBtn = document.querySelector('button.reset');
+const updateModalForm = (option, editMode = null, taskData = null) => {
 
-    removeFormChildren(formElement);
+    if (editMode === true) {
+        const formElement = document.querySelector('.edit-modal form');
+        formElement.setAttribute('id', 'edit-task');
 
-    if (option === "Task"){
-        formElement.setAttribute('id', 'add-task');
+        const submitBtn = document.querySelector('.edit-modal button.submit');
+        const resetBtn = document.querySelector('.edit-modal button.reset');
 
-        const taskFormEelemnts = formElements.createTaskForm();
-        const submitContainer = document.querySelector('.submit_container');
+        removeFormChildren(formElement);
+
+        const taskFormEelemnts = formElements.createTaskForm(taskData);
+        const submitContainer = document.querySelector('.edit-modal .submit_container');
         for (let index = 0; index < taskFormEelemnts.length; index++) {
             formElement.insertBefore(taskFormEelemnts[index], submitContainer);
         }
-
-        submitBtn.setAttribute('form', 'add-task');
+    
+        submitBtn.setAttribute('form', 'edit-task');
     }
-    else if (option === "Project"){
-        formElement.setAttribute('id', 'add-project');
-        const projectFormElements = formElements.createProjectForm();
-        const submitContainer = document.querySelector('.submit_container');
-        for (let index = 0; index < projectFormElements.length; index++) {
-            formElement.insertBefore(projectFormElements[index], submitContainer);
+
+    else{
+        const formElement = document.querySelector('.add-modal form');
+        const submitBtn = document.querySelector('button.submit');
+        const resetBtn = document.querySelector('.add-modal button.reset');
+
+        removeFormChildren(formElement);
+
+        if (option === "Task"){
+            formElement.setAttribute('id', 'add-task');
+            const taskFormEelemnts = formElements.createTaskForm();
+            const submitContainer = document.querySelector('.add-modal .submit_container');
+            for (let index = 0; index < taskFormEelemnts.length; index++) {
+                formElement.insertBefore(taskFormEelemnts[index], submitContainer);
+            }
+    
+            submitBtn.setAttribute('form', 'add-task');
         }
-
-        submitBtn.setAttribute('form', 'add-project');
-    }
-    else if (option === "Note"){
-        formElement.setAttribute('id', 'add-note');
-        const projectFormElements = formElements.createNotesForm();
-        const submitContainer = document.querySelector('.submit_container');
-        for (let index = 0; index < projectFormElements.length; index++) {
-            formElement.insertBefore(projectFormElements[index], submitContainer);
+        else if (option === "Project"){
+            formElement.setAttribute('id', 'add-project');
+            const projectFormElements = formElements.createProjectForm();
+            const submitContainer = document.querySelector('.add-modal .submit_container');
+            for (let index = 0; index < projectFormElements.length; index++) {
+                formElement.insertBefore(projectFormElements[index], submitContainer);
+            }
+    
+            submitBtn.setAttribute('form', 'add-project');
         }
-
-        submitBtn.setAttribute('form', 'add-note');
+        else if (option === "Note"){
+            formElement.setAttribute('id', 'add-note');
+            const projectFormElements = formElements.createNotesForm();
+            const submitContainer = document.querySelector('.add-modal .submit_container');
+            for (let index = 0; index < projectFormElements.length; index++) {
+                formElement.insertBefore(projectFormElements[index], submitContainer);
+            }
+    
+            submitBtn.setAttribute('form', 'add-note');
+        }
     }
+    
+    
 }
 
 const clickFirstModalOptionOnLoad = () => {
@@ -117,10 +148,6 @@ const clickFirstModalOptionOnLoad = () => {
     firstOption.click();
 }
 
-const clickFirstProjectOnload = () => {
-    const firstProjcet = document.querySelector('.default-projects-container').firstElementChild;
-    firstProjcet.click();
-}
 
 const addStyleforselected = ((element, color) => {
     element.style.borderBottom = `3px solid ${color}`;
@@ -142,9 +169,9 @@ const removeFormChildren = (form) => {
     }
 }
 
-const resetForm = () => {
-    const inputsOfForm = document.querySelectorAll('form input');
-    const textareasOfForm = document.querySelectorAll ('form textarea');
+const resetForm = (form) => {
+    const inputsOfForm = document.querySelectorAll(`#${form.getAttribute('id')} input`);
+    const textareasOfForm = document.querySelectorAll(`#${form.getAttribute('id')} textarea`);
     const arrayOfAllelementsOfForm = Array.from(inputsOfForm).concat(Array.from(textareasOfForm));
     arrayOfAllelementsOfForm.forEach((element) => {
         formMehthods.resetInput(element);
@@ -172,6 +199,6 @@ const generateTasksOfProjectinDOM = () => {
 }
 
 export {showModal, closeModal,addProjectInSideBar, showProjectTasks, 
-    showProjectTitle, clickFirstProjectOnload, addStyleforselected, removeStylefromNotSelected, 
+    showProjectTitle, addStyleforselected, removeStylefromNotSelected, 
     updateModalForm, clickFirstModalOptionOnLoad, checkForFormNameIfEqualsOption, resetForm
 };

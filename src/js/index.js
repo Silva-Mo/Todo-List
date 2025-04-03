@@ -1,17 +1,20 @@
 import '../css/normalize.css';
 import '../css/styles.css';
-import {addProject as createProject, projectIndexNum, indexTodosValue, changeCurrentProject, addTasktoProject} from "./projects.js";
+import {addProject as createProject, projectIndexNum, indexTodosValue, changeCurrentProject, addTasktoProject, editTask} from "./projects.js";
 import * as domManipulation from './domMethods.js';
 import * as formMehthods from './formMethods.js';
 import * as defaults from './defaultTodo.js';
 import {task as createTask} from "./todos.js";
 
 defaults.addDefaultProjects();
+domManipulation.addStyleforselected(document.querySelector('.project-div'), 'rgb(218, 159, 252)');
 
 const add = document.querySelector('.add-container');
-const submitBtn = document.querySelector('.submit');
+const addSubmitBtn = document.querySelector('.add-modal .submit');
+const editSubmitBtn = document.querySelector('.edit-modal .submit');
 const modalContainer = document.querySelector('.modal-container');
-const form = document.querySelector('form');
+const addForm = document.querySelector('.add-modal form');
+const editForm = document.querySelector('.edit-modal form');
 const closeModalBtn = document.querySelectorAll('.close img');
 const projectDivs = document.querySelectorAll('.project-div');
 const addOptions = document.querySelectorAll('.modal-sidebar h3');
@@ -28,16 +31,29 @@ closeModalBtn.forEach((btn) => {
 })
 })
 
-submitBtn.addEventListener('click', (e) => {
-    if (form.checkValidity()){
+addSubmitBtn.addEventListener('click', (e) => {
+    if (addForm.checkValidity()){
         e.preventDefault(); 
-        if (submitBtn.getAttribute('form') === 'add-task'){
-            const taskData = createTask(formMehthods.dataOfFormSubmitted());
+        if (addSubmitBtn.getAttribute('form') === 'add-task'){
+            console.log(addSubmitBtn.getAttribute('form'));
+            const taskData = createTask(formMehthods.dataOfFormSubmitted(addForm));
             addTasktoProject(taskData);
             domManipulation.showProjectTasks();
-            domManipulation.resetForm();
+            domManipulation.resetForm(addForm);
             domManipulation.closeModal(modalContainer);
         }
+    }
+})
+
+editSubmitBtn.addEventListener('click', (e) => {
+    if (editForm.checkValidity()){
+        e.preventDefault(); 
+        const taskIndex = document.querySelector('.edit-modal').getAttribute('data-taskIndexToBeEdited');
+        const taskData = createTask(formMehthods.dataOfFormSubmitted(editForm));
+        editTask(taskIndex, taskData);
+            domManipulation.showProjectTasks();
+            domManipulation.resetForm(editForm);
+            domManipulation.closeModal(modalContainer);
     }
 })
 
@@ -53,14 +69,12 @@ projectDivs.forEach((projectDiv) => {
     })
 }) 
 
-domManipulation.clickFirstProjectOnload();
-
 addOptions.forEach((addOption) => {
     addOption.addEventListener('click', (e) => {
         domManipulation.removeStylefromNotSelected(addOptions);
         domManipulation.addStyleforselected(addOption, "white");
         const option = e.target.textContent;
-        if (domManipulation.checkForFormNameIfEqualsOption(form, option)){
+        if (domManipulation.checkForFormNameIfEqualsOption(addForm, option)){
             return;
         }
         else{
