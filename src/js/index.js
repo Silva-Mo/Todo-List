@@ -7,7 +7,6 @@ import * as defaults from './defaultTodo.js';
 import {task as createTask} from "./todos.js";
 
 defaults.addDefaultProjects();
-domManipulation.addStyleforselected(document.querySelector('.project-div'), 'rgb(218, 159, 252)');
 
 const add = document.querySelector('.add-container');
 const addSubmitBtn = document.querySelector('.add-modal .submit');
@@ -20,6 +19,7 @@ const projectDivs = document.querySelectorAll('.project-div');
 const addOptions = document.querySelectorAll('.modal-sidebar h3');
 const clearFormBtn = document.querySelector('.reset');
 
+domManipulation.addStyleOnlyForSelected(projectDivs, "0",'rgb(218, 159, 252)');
 
 add.addEventListener('click', () => {
     domManipulation.showModal(modalContainer, "add");
@@ -35,12 +35,16 @@ addSubmitBtn.addEventListener('click', (e) => {
     if (addForm.checkValidity()){
         e.preventDefault(); 
         if (addSubmitBtn.getAttribute('form') === 'add-task'){
-            console.log(addSubmitBtn.getAttribute('form'));
             const taskData = createTask(formMehthods.dataOfFormSubmitted(addForm));
             addTasktoProject(taskData);
             domManipulation.showProjectTasks();
             domManipulation.resetForm(addForm);
             domManipulation.closeModal(modalContainer);
+        }
+        else if (addSubmitBtn.getAttribute('form') === 'add-project'){
+            const projectTitle = formMehthods.dataOfFormSubmitted(addForm)["project-title"];
+            createProject(projectTitle);
+            domManipulation.addProjectInSideBar(projectTitle, true);
         }
     }
 })
@@ -57,22 +61,9 @@ editSubmitBtn.addEventListener('click', (e) => {
     }
 })
 
-projectDivs.forEach((projectDiv) => {
-    projectDiv.addEventListener('click', () => {
-        const projectIndex = projectDiv.getAttribute("id");
-        changeCurrentProject(projectIndex);
-        const todosOfProject = indexTodosValue();
-        domManipulation.showProjectTitle(projectDiv.textContent);
-        domManipulation.showProjectTasks(todosOfProject);
-        domManipulation.removeStylefromNotSelected(projectDivs);
-        domManipulation.addStyleforselected(projectDiv, "rgb(218, 159, 252)");
-    })
-}) 
-
 addOptions.forEach((addOption) => {
     addOption.addEventListener('click', (e) => {
-        domManipulation.removeStylefromNotSelected(addOptions);
-        domManipulation.addStyleforselected(addOption, "white");
+        domManipulation.addStyleOnlyForSelected(addOptions ,"white", null);
         const option = e.target.textContent;
         if (domManipulation.checkForFormNameIfEqualsOption(addForm, option)){
             return;

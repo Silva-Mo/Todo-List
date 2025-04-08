@@ -2,7 +2,7 @@ import { task } from "./todos";
 import * as formElements from "./formDomElements";
 import * as formMehthods from "./formMethods";
 import * as todoElements from "./todoElements";
-import { indexTodosValue } from "./projects";
+import { indexTodosValue, changeCurrentProject } from "./projects";
 
 
 
@@ -34,13 +34,32 @@ const closeModal = (modalContainer) => {
     modalContainer.style.display = "none";
 }
 
-const addProjectInSideBar = (title) => {
-    const projectsContainer = document.querySelector('.default-projects-container');
+const addProjectInSideBar = (title, newProject) => {
+    let projectsContainer;
+
+    if (newProject === false){
+        projectsContainer =  document.querySelector('.default-projects-container');
+    }
+    else {
+        projectsContainer = document.querySelector('.new-projects-container');
+    }
+    
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project-div');
     projectDiv.textContent = title;
     projectsContainer.appendChild(projectDiv);
     assignIdtoProjectElement();
+    
+    projectDiv.addEventListener('click', (e) => {
+        const projectDivs = document.querySelectorAll('.project-div')
+        const projectIndex = projectDiv.getAttribute("id");
+        changeCurrentProject(projectIndex);
+        const todosOfProject = indexTodosValue();
+        showProjectTitle(projectDiv.textContent);
+        showProjectTasks(todosOfProject);
+        addStyleOnlyForSelected(projectDivs, projectIndex, 'rgb(218, 159, 252)');
+    })
+    
 }
 
 const clearTodoDiv = () => {
@@ -148,18 +167,19 @@ const clickFirstModalOptionOnLoad = () => {
     firstOption.click();
 }
 
-
-const addStyleforselected = ((element, color) => {
-    element.style.borderBottom = `3px solid ${color}`;
-    element.style.color = color;
-})
-
-const removeStylefromNotSelected = ((elements) => {
+const addStyleOnlyForSelected = (elements, idOfElementToBeSelected, color) => {
+    console.log(elements);
     elements.forEach((element) => {
-        element.style.borderBottom = "3px solid transparent";
-        element.style.color = "white";
+        if (element.getAttribute('id') === idOfElementToBeSelected){
+            element.style.borderBottom = `3px solid ${color}`;
+            element.style.color = color;
+        }
+        else{
+            element.style.borderBottom = `3px solid transparent`;
+            element.style.color = 'white';
+        }
     })
-})
+}
 
 const removeFormChildren = (form) => {  
     for (let index = 0; index < form.childNodes.length; index++) {
@@ -199,6 +219,6 @@ const generateTasksOfProjectinDOM = () => {
 }
 
 export {showModal, closeModal,addProjectInSideBar, showProjectTasks, 
-    showProjectTitle, addStyleforselected, removeStylefromNotSelected, 
-    updateModalForm, clickFirstModalOptionOnLoad, checkForFormNameIfEqualsOption, resetForm
+    showProjectTitle, addStyleOnlyForSelected, updateModalForm, 
+    clickFirstModalOptionOnLoad, checkForFormNameIfEqualsOption, resetForm
 };

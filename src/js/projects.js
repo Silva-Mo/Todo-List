@@ -41,7 +41,7 @@ const getTaskDetails = (taskIndex) => {
     return [projects[currentProject].title,projects[currentProject].todos[taskIndex]];
 }
 
-const editTask = (taskIndex, taskNewData) =>{
+const editTask = (taskIndex, taskNewData) => {
     const taskOfInterest = projects[currentProject].todos[taskIndex];
     taskOfInterest.title = taskNewData.title;
     taskOfInterest.description = taskNewData.description;
@@ -49,6 +49,11 @@ const editTask = (taskIndex, taskNewData) =>{
     taskOfInterest.priority = taskNewData.priority;
 }
 
+const deleteTaskFromProject = (taskIndex) => {
+    projects[currentProject].todos.splice(taskIndex, 1);
+    console.log(projects[currentProject].todos);
+}
+
 export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, 
-    changeTaskStatus, getTaskDetails, editTask
+    changeTaskStatus, getTaskDetails, editTask, deleteTaskFromProject
 };

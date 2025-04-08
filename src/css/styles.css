@@ -76,7 +76,7 @@ body {
     align-items: center;
     margin-bottom: 20px;
     font-size: 1.6rem;
-    border-bottom: 4px solid white;
+    border-bottom: 4px solid rgb(255, 255, 255);
 }
 
 .add-container img{
@@ -354,6 +354,12 @@ div.submit_container button:active {
     margin: 14px;
     border-bottom: 3px solid transparent;
     transition: 0.1s;
+    width: 85px;
+    align-self: center;
+}
+
+.project-div:first-of-type{
+    margin-top: 0px;
 }
 
 .project-div:hover{
@@ -363,11 +369,13 @@ div.submit_container button:active {
 
 .default-projects-container{
     display: flex;
-    align-self: stretch;
+    align-self: center;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    width: 80%;
 }
+
 
 #todos-container {
     width: 77%;
@@ -391,12 +399,12 @@ div.submit_container button:active {
     align-items: center;
 }
 
-.todos div {
+.todos > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 90%;
-    height: 90%;
+    min-height: 70vh;
     background-color: rgba(0, 0, 0, 0.219);
     border-radius: 7px;
     font-size: 1.3rem;
@@ -472,7 +480,8 @@ div.task-div {
     border-radius: 7px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content:space-around;
+    align-items: center;
     gap: 20px;
     transition: 0.1s;
 }
@@ -495,6 +504,7 @@ div.task-div div {
     background-color: transparent;
     display: flex;
     justify-content: center;
+    width: 100px;
 }
 
 div.task-div img{
@@ -525,6 +535,24 @@ div.task-div button:hover, div.task-div img:hover{
 
 .details-content h1{
     margin-top: 0;
+}
+
+.new-projects-container{
+    width: 80%;
+    border-top: 3px solid #22222265;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.projects-header{
+    color:rgb(219, 0, 164);
+    background-color: #22222293;
+    padding: 3px;
+    border-radius: 5px;
+    width: fit-content;
+    align-self: flex-start;
 }
 
 
