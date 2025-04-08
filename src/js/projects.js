@@ -54,6 +54,11 @@ const deleteTaskFromProject = (taskIndex) => {
     console.log(projects[currentProject].todos);
 }
 
+const deleteProjectFromProjects = () =>{
+    projects.splice(currentProject, 1);
+    return currentProject;
+}
+
 export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, 
-    changeTaskStatus, getTaskDetails, editTask, deleteTaskFromProject
+    changeTaskStatus, getTaskDetails, editTask, deleteTaskFromProject, deleteProjectFromProjects
 };

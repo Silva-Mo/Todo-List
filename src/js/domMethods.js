@@ -2,7 +2,7 @@ import { task } from "./todos";
 import * as formElements from "./formDomElements";
 import * as formMehthods from "./formMethods";
 import * as todoElements from "./todoElements";
-import { indexTodosValue, changeCurrentProject } from "./projects";
+import { indexTodosValue, changeCurrentProject, deleteProjectFromProjects } from "./projects";
 
 
 
@@ -51,7 +51,7 @@ const addProjectInSideBar = (title, newProject) => {
     assignIdtoProjectElement();
     
     projectDiv.addEventListener('click', (e) => {
-        const projectDivs = document.querySelectorAll('.project-div')
+        const projectDivs = document.querySelectorAll('.project-div');
         const projectIndex = projectDiv.getAttribute("id");
         changeCurrentProject(projectIndex);
         const todosOfProject = indexTodosValue();
@@ -75,13 +75,39 @@ const showProjectTasks = (projectTodos) => {
 
     if (projectTodos == 0){
         projectTasksText.textContent = "There are no tasks added here!";
+        const deleteProjectBtn = document.createElement('button');
+        deleteProjectBtn.textContent = "Delete Project";
+        todosContainerDiv.appendChild(projectTasksText);
+
+        deleteProjectBtn.addEventListener('click', (e) => {
+            deleteProject(deleteProjectFromProjects());
+            assignIdtoProjectElement();
+        })
+
+        todosContainerDiv.appendChild(deleteProjectBtn);
     }
     else {
         generateTasksOfProjectinDOM();
     }
-    
+}
 
-    todosContainerDiv.appendChild(projectTasksText);
+const deleteProject =  (projectIndex) => {
+    if (projectIndex < 3){
+        const container = document.querySelector(".default-projects-container");
+        container.childNodes.forEach((element) => {
+            if (element.id === projectIndex.toString()){
+                container.removeChild(element);
+            }
+        })
+    }
+    else {
+        const container = document.querySelector(".new-projects-container");
+        container.childNodes.forEach((element) => {
+            if (element.id === projectIndex.toString()){
+                container.removeChild(element);
+            }
+        })
+    }
 }
 
 const showProjectTitle = ((projectTitle) => {
