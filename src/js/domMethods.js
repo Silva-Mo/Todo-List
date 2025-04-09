@@ -1,3 +1,4 @@
+import deletedImage from "../imgs/empty.svg"
 import { task } from "./todos";
 import * as formElements from "./formDomElements";
 import * as formMehthods from "./formMethods";
@@ -56,7 +57,7 @@ const addProjectInSideBar = (title, newProject) => {
         changeCurrentProject(projectIndex);
         const todosOfProject = indexTodosValue();
         showProjectTitle(projectDiv.textContent);
-        showProjectTasks(todosOfProject);
+        showProjectTasks(todosOfProject, projectIndex);
         addStyleOnlyForSelected(projectDivs, projectIndex, 'rgb(218, 159, 252)');
     })
     
@@ -67,7 +68,7 @@ const clearTodoDiv = () => {
     todosContainerDiv.textContent = "";
 }
 
-const showProjectTasks = (projectTodos) => {
+const showProjectTasks = (projectTodos, projectIndex) => {
     clearTodoDiv();
     const todosContainerDiv = document.querySelector('#todos-container .todos div');
     const projectTasksText = document.createElement('h2');
@@ -75,13 +76,31 @@ const showProjectTasks = (projectTodos) => {
 
     if (projectTodos == 0){
         projectTasksText.textContent = "There are no tasks added here!";
+        todosContainerDiv.appendChild(projectTasksText);
+        if (projectIndex < 3){
+            return;
+        }
         const deleteProjectBtn = document.createElement('button');
         deleteProjectBtn.textContent = "Delete Project";
-        todosContainerDiv.appendChild(projectTasksText);
 
         deleteProjectBtn.addEventListener('click', (e) => {
             deleteProject(deleteProjectFromProjects());
             assignIdtoProjectElement();
+            clearTodoDiv()
+
+            const h2EmptyMessage = document.createElement('h2');
+            const emptyImage = document.createElement("img");
+
+            h2EmptyMessage.textContent = "Nothing is here tbh, please select a project :)"; 
+            emptyImage.src = deletedImage;
+
+            emptyImage.style.width = "200px"
+            emptyImage.style.padding = "20px"
+            h2EmptyMessage.style.marginTop = "0px";
+
+            showProjectTitle("Empty :)")
+            todosContainerDiv.appendChild(emptyImage);
+            todosContainerDiv.appendChild(h2EmptyMessage);
         })
 
         todosContainerDiv.appendChild(deleteProjectBtn);
@@ -92,22 +111,13 @@ const showProjectTasks = (projectTodos) => {
 }
 
 const deleteProject =  (projectIndex) => {
-    if (projectIndex < 3){
-        const container = document.querySelector(".default-projects-container");
-        container.childNodes.forEach((element) => {
-            if (element.id === projectIndex.toString()){
-                container.removeChild(element);
-            }
-        })
-    }
-    else {
         const container = document.querySelector(".new-projects-container");
         container.childNodes.forEach((element) => {
             if (element.id === projectIndex.toString()){
                 container.removeChild(element);
             }
         })
-    }
+
 }
 
 const showProjectTitle = ((projectTitle) => {

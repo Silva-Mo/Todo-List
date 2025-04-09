@@ -1,6 +1,6 @@
 import editImg from '../imgs/edit.svg';
 import deleteImg from '../imgs/delete.svg';
-import { changeTaskStatus, deleteTaskFromProject, getTaskDetails, indexTodosValue } from './projects';
+import { changeTaskStatus, deleteTaskFromProject, getTaskDetails, indexTodosValue, getCurrentProjectIndex } from './projects';
 import { task } from './todos';
 import { showModal, updateModalForm, showProjectTasks } from './domMethods';
 import {format} from "date-fns";
@@ -76,7 +76,7 @@ const createTaskElement = (taskData) => {
     deleteImage.addEventListener('click', (e) => {
         const taskIndex =  e.target.parentNode.getAttribute("id");
         deleteTaskFromProject(taskIndex);
-        showProjectTasks(indexTodosValue());
+        showProjectTasks(indexTodosValue(), getCurrentProjectIndex());
     })
 
     const arrayOfElements = [doneCheckBox, titleDiv, detailsBtn, dueDateDiv,editImage, deleteImage]

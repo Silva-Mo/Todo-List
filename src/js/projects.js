@@ -59,6 +59,10 @@ const deleteProjectFromProjects = () =>{
     return currentProject;
 }
 
+const getCurrentProjectIndex = () => {
+    return currentProject;
+}
+
 export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, 
-    changeTaskStatus, getTaskDetails, editTask, deleteTaskFromProject, deleteProjectFromProjects
+    changeTaskStatus, getTaskDetails, editTask, deleteTaskFromProject, deleteProjectFromProjects, getCurrentProjectIndex
 };

@@ -45,6 +45,8 @@ addSubmitBtn.addEventListener('click', (e) => {
             const projectTitle = formMehthods.dataOfFormSubmitted(addForm)["project-title"];
             createProject(projectTitle);
             domManipulation.addProjectInSideBar(projectTitle, true);
+            domManipulation.resetForm(addForm);
+            domManipulation.closeModal(modalContainer);
         }
     }
 })

@@ -7,7 +7,7 @@ const addDefaultProjects = () => {
     defaultProjects.forEach((project) => {
         createProject(project);
         domManipulation.addProjectInSideBar(project, false);
-        domManipulation.showProjectTasks(indexTodosValue())
+        domManipulation.showProjectTasks(indexTodosValue(), 0)
         domManipulation.showProjectTitle("Home");
     }) 
 }
