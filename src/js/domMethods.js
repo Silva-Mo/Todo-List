@@ -3,8 +3,8 @@ import { task } from "./todos";
 import * as formElements from "./formDomElements";
 import * as formMehthods from "./formMethods";
 import * as todoElements from "./todoElements";
-import { indexTodosValue, changeCurrentProject, deleteProjectFromProjects } from "./projects";
-
+import { indexTodosValue, changeCurrentProject, deleteProjectFromProjects, getProjectsArray } from "./projects";
+import * as localStorageStuff from "./localStorage";
 
 
 const showModal = (modalContainer, choiceOfModal, taskIndexOfEdit = null) => {
@@ -35,22 +35,30 @@ const closeModal = (modalContainer) => {
     modalContainer.style.display = "none";
 }
 
-const addProjectInSideBar = (title, newProject) => {
-    let projectsContainer;
+const generateProjectsInSideBar = (projectsArray) => {
+    const defaultProjectsContainer = document.querySelector('.default-projects-container')
+    const newProjectsContainer = document.querySelector('.new-projects-container')
+    removeProjectsContainerChildrenNodes([defaultProjectsContainer, newProjectsContainer]);   
+ 
+    for (let index = 0; index < projectsArray.length; index++) {
+        if (index < 3) {
+            const projectTitle = projectsArray[index].title;
+            createProjectDiv(defaultProjectsContainer, projectTitle, index);
+        }
+        else if (index >= 3 ) {
+            const projectTitle = projectsArray[index].title;
+            createProjectDiv(newProjectsContainer, projectTitle, index);
+        }
+    }
+}
 
-    if (newProject === false){
-        projectsContainer =  document.querySelector('.default-projects-container');
-    }
-    else {
-        projectsContainer = document.querySelector('.new-projects-container');
-    }
-    
+const createProjectDiv = (container, title ,index) => {
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project-div');
     projectDiv.textContent = title;
-    projectsContainer.appendChild(projectDiv);
-    assignIdtoProjectElement();
-    
+    projectDiv.setAttribute("id", `${index}`);
+    container.appendChild(projectDiv);
+
     projectDiv.addEventListener('click', (e) => {
         const projectDivs = document.querySelectorAll('.project-div');
         const projectIndex = projectDiv.getAttribute("id");
@@ -59,8 +67,8 @@ const addProjectInSideBar = (title, newProject) => {
         showProjectTitle(projectDiv.textContent);
         showProjectTasks(todosOfProject, projectIndex);
         addStyleOnlyForSelected(projectDivs, projectIndex, 'rgb(218, 159, 252)');
+        localStorageStuff.populateStorage();
     })
-    
 }
 
 const clearTodoDiv = () => {
@@ -84,8 +92,8 @@ const showProjectTasks = (projectTodos, projectIndex) => {
         deleteProjectBtn.textContent = "Delete Project";
 
         deleteProjectBtn.addEventListener('click', (e) => {
-            deleteProject(deleteProjectFromProjects());
-            assignIdtoProjectElement();
+            deleteProjectFromProjects();
+            generateProjectsInSideBar(getProjectsArray());
             clearTodoDiv()
 
             const h2EmptyMessage = document.createElement('h2');
@@ -101,6 +109,7 @@ const showProjectTasks = (projectTodos, projectIndex) => {
             showProjectTitle("Empty :)")
             todosContainerDiv.appendChild(emptyImage);
             todosContainerDiv.appendChild(h2EmptyMessage);
+            localStorageStuff.populateStorage();
         })
 
         todosContainerDiv.appendChild(deleteProjectBtn);
@@ -118,6 +127,19 @@ const deleteProject =  (projectIndex) => {
             }
         })
 
+}
+
+const removeProjectsContainerChildrenNodes = (containers) => {
+    containers.forEach((container) => {
+        for (let index = 0; index < container.childNodes.length; index++) {
+            if (container.lastElementChild){
+                if (container.lastElementChild.nodeName == "DIV"){
+                    container.removeChild(container.lastElementChild);    
+                }
+
+            }
+        }
+    })
 }
 
 const showProjectTitle = ((projectTitle) => {
@@ -183,16 +205,6 @@ const updateModalForm = (option, editMode = null, taskData = null) => {
     
             submitBtn.setAttribute('form', 'add-project');
         }
-        else if (option === "Note"){
-            formElement.setAttribute('id', 'add-note');
-            const projectFormElements = formElements.createNotesForm();
-            const submitContainer = document.querySelector('.add-modal .submit_container');
-            for (let index = 0; index < projectFormElements.length; index++) {
-                formElement.insertBefore(projectFormElements[index], submitContainer);
-            }
-    
-            submitBtn.setAttribute('form', 'add-note');
-        }
     }
     
     
@@ -226,8 +238,8 @@ const removeFormChildren = (form) => {
 }
 
 const resetForm = (form) => {
-    const inputsOfForm = document.querySelectorAll(`#${form.getAttribute('id')} input`);
-    const textareasOfForm = document.querySelectorAll(`#${form.getAttribute('id')} textarea`);
+    const inputsOfForm = document.querySelectorAll(`#${form.id} input`);
+    const textareasOfForm = document.querySelectorAll(`#${form.id} textarea`);
     const arrayOfAllelementsOfForm = Array.from(inputsOfForm).concat(Array.from(textareasOfForm));
     arrayOfAllelementsOfForm.forEach((element) => {
         formMehthods.resetInput(element);
@@ -254,7 +266,7 @@ const generateTasksOfProjectinDOM = () => {
     }
 }
 
-export {showModal, closeModal,addProjectInSideBar, showProjectTasks, 
+export {showModal, closeModal, showProjectTasks, 
     showProjectTitle, addStyleOnlyForSelected, updateModalForm, 
-    clickFirstModalOptionOnLoad, checkForFormNameIfEqualsOption, resetForm
+    clickFirstModalOptionOnLoad, checkForFormNameIfEqualsOption, resetForm, generateProjectsInSideBar
 };

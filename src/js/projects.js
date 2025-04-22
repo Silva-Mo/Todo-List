@@ -1,4 +1,7 @@
-const projects = [];
+let projects = [{title: "Home", todos: []},
+                  {title: "Today", todos: []},
+                  {title: "Week", todos: []},
+];
 
 function project(title) {
     const todos = [];
@@ -63,6 +66,40 @@ const getCurrentProjectIndex = () => {
     return currentProject;
 }
 
+const getProjectTodos = (projectIndex) => {
+    console.log(projectIndex);
+    return projects[projectIndex].todos;
+}
+
+const checkIfProjectsTodosExists = () => {
+    if (projects.length !== 0){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+const setSavedProjects = (savedHome, savedToday, savedWeek, newProjects) => {
+    projects[0].todos = savedHome;
+    projects[1].todos = savedToday;
+    projects[2].todos = savedWeek;
+    newProjects.forEach((object) => {
+        projects.push(object);
+    })  
+}
+
+const getProjectsArray = () => {
+    return projects;
+}
+
+const getNewProjectsArray = () => {
+    const splicedProjects = projects.slice(3);
+    return splicedProjects;
+}
+
 export {addProject, indexTodosValue, changeCurrentProject, addTasktoProject, 
-    changeTaskStatus, getTaskDetails, editTask, deleteTaskFromProject, deleteProjectFromProjects, getCurrentProjectIndex
+    changeTaskStatus, getTaskDetails, editTask, deleteTaskFromProject, deleteProjectFromProjects, 
+    getCurrentProjectIndex, getProjectTodos, setSavedProjects, checkIfProjectsTodosExists, 
+    getProjectsArray, getNewProjectsArray
 };

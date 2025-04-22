@@ -1,10 +1,11 @@
 import '../css/normalize.css';
 import '../css/styles.css';
-import {addProject as createProject, projectIndexNum, indexTodosValue, changeCurrentProject, addTasktoProject, editTask} from "./projects.js";
+import {addProject as createProject, projectIndexNum, indexTodosValue, changeCurrentProject, addTasktoProject, editTask, getProjectsArray} from "./projects.js";
 import * as domManipulation from './domMethods.js';
 import * as formMehthods from './formMethods.js';
 import * as defaults from './defaultTodo.js';
 import {task as createTask} from "./todos.js";
+import * as localStorageStuff from "./localStorage.js"
 
 defaults.addDefaultProjects();
 
@@ -17,7 +18,7 @@ const editForm = document.querySelector('.edit-modal form');
 const closeModalBtn = document.querySelectorAll('.close img');
 const projectDivs = document.querySelectorAll('.project-div');
 const addOptions = document.querySelectorAll('.modal-sidebar h3');
-const clearFormBtn = document.querySelector('.reset');
+const clearFormBtn = document.querySelectorAll('.reset');
 
 domManipulation.addStyleOnlyForSelected(projectDivs, "0",'rgb(218, 159, 252)');
 
@@ -40,13 +41,15 @@ addSubmitBtn.addEventListener('click', (e) => {
             domManipulation.showProjectTasks();
             domManipulation.resetForm(addForm);
             domManipulation.closeModal(modalContainer);
+            localStorageStuff.populateStorage();
         }
         else if (addSubmitBtn.getAttribute('form') === 'add-project'){
             const projectTitle = formMehthods.dataOfFormSubmitted(addForm)["project-title"];
             createProject(projectTitle);
-            domManipulation.addProjectInSideBar(projectTitle, true);
+            domManipulation.generateProjectsInSideBar(getProjectsArray());
             domManipulation.resetForm(addForm);
             domManipulation.closeModal(modalContainer);
+            localStorageStuff.populateStorage();
         }
     }
 })
@@ -57,15 +60,16 @@ editSubmitBtn.addEventListener('click', (e) => {
         const taskIndex = document.querySelector('.edit-modal').getAttribute('data-taskIndexToBeEdited');
         const taskData = createTask(formMehthods.dataOfFormSubmitted(editForm));
         editTask(taskIndex, taskData);
-            domManipulation.showProjectTasks();
-            domManipulation.resetForm(editForm);
-            domManipulation.closeModal(modalContainer);
+        domManipulation.showProjectTasks();
+        domManipulation.resetForm(editForm);
+        domManipulation.closeModal(modalContainer);
+        localStorageStuff.populateStorage();
     }
 })
 
 addOptions.forEach((addOption) => {
     addOption.addEventListener('click', (e) => {
-        domManipulation.addStyleOnlyForSelected(addOptions ,"white", null);
+        domManipulation.addStyleOnlyForSelected(addOptions , addOption.id, "white");
         const option = e.target.textContent;
         if (domManipulation.checkForFormNameIfEqualsOption(addForm, option)){
             return;
@@ -76,8 +80,10 @@ addOptions.forEach((addOption) => {
     })
 })
 
-clearFormBtn.addEventListener('click', () => {
-    domManipulation.resetForm();
-})
+clearFormBtn.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+    const formCleared = e.target.parentNode.parentNode;
+    domManipulation.resetForm(formCleared);
+})})
 
 domManipulation.clickFirstModalOptionOnLoad();

@@ -117,12 +117,5 @@ const createProjectForm = () => {
     return [projectTitle];
 }
 
-const createNotesForm = () => {
-    const NoteTitle = createInput('Title:', 'text', 'note-title', 'note-title', true, "0", "30");
-    const NoteDetails = createInput("Details:", 'textarea', 'note-detail', 'note-detail', true, "0", "300");
 
-    return [NoteTitle, NoteDetails];
-}
-
-
-export {createTaskForm, createProjectForm, createNotesForm}
+export {createTaskForm, createProjectForm}

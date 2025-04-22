@@ -4,6 +4,7 @@ import { changeTaskStatus, deleteTaskFromProject, getTaskDetails, indexTodosValu
 import { task } from './todos';
 import { showModal, updateModalForm, showProjectTasks } from './domMethods';
 import {format} from "date-fns";
+import * as localStorageStuff from "./localStorage";
 
 const createTaskElement = (taskData) => {
     const taskDiv = document.createElement('div');
@@ -56,7 +57,7 @@ const createTaskElement = (taskData) => {
         else if (isDone(taskData) === "undone"){
             taskDiv.setAttribute('data-status', "unchecked");
         }
-
+        localStorageStuff.populateStorage();
     })
 
     detailsBtn.addEventListener('click', (e) => {
@@ -71,12 +72,14 @@ const createTaskElement = (taskData) => {
         const taskIndex =  e.target.parentNode.getAttribute("id");
         updateModalForm("Task", true, getTaskDetails(taskIndex));
         showModal(modalContainer, "edit", taskIndex);
+        
     })
 
     deleteImage.addEventListener('click', (e) => {
         const taskIndex =  e.target.parentNode.getAttribute("id");
         deleteTaskFromProject(taskIndex);
         showProjectTasks(indexTodosValue(), getCurrentProjectIndex());
+        localStorageStuff.populateStorage();
     })
 
     const arrayOfElements = [doneCheckBox, titleDiv, detailsBtn, dueDateDiv,editImage, deleteImage]
