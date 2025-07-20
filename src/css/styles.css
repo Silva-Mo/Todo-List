@@ -575,3 +575,162 @@ div.task-div button:hover, div.task-div img:hover{
     transform: scale(1.06);
     background-color: #222;
 }
+
+@media (max-width: 1000px) {
+    :root{
+        font-size: 13px;
+    }
+
+    .add-modal form .input-container, .edit-modal form .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    justify-content: flex-start;
+    width: 100%;
+    }
+
+    .add-modal form .input-container.priority, .edit-modal form .input-container.priority {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 5px;
+    justify-content: flex-start;
+    width: 100%;
+    }
+
+    .add-modal{
+        height: 90vh;
+    }
+}
+
+@media (max-width: 825px) {
+    .add-modal form .input-container.priority, .edit-modal form .input-container.priority {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    }
+
+    .add-modal, .edit-modal {
+        height: 90vh;
+        overflow: auto;
+    }
+
+    .edit-modal{
+        width: 60%;
+    }
+
+    .add-modal .modal-content, .edit-modal .modal-content{
+        flex-direction: column;
+    }
+
+    .modal-sidebar{
+        border-radius: 0px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+    
+    #content{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #sidebar{
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        overflow: auto;
+        gap: 40px;
+    }
+
+    .default-projects-container{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .default-projects-container > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 15px;
+        padding: 5px;
+       
+    }
+
+    .new-projects-container{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-top: none;
+    }
+
+    .new-projects-container > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 15px;
+        padding: 5px;
+    }
+
+    .project-div:first-of-type{
+        margin-top: 15px;
+    }
+
+    .default-projects-container .projects-header, .new-projects-container .projects-header{
+        margin-top: 15px;
+        transform: translateY(2px);
+    }
+    #sidebar .add-container{
+        margin-bottom: 0;
+        border-bottom: none;
+        border-radius: 12px;
+        margin-right: 40px;
+        gap: 2px;
+    }
+
+    .add-container img{
+        width: 30px;
+    }
+
+    #todos-container{
+        width: 95%;
+    }
+
+    div.task-div{
+        width: 95%;
+    }
+
+    .todos > div{
+        width: 95%;
+    }
+
+    div.task-div img{
+        height: 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    :root{
+        font-size: 11px;
+    }
+    button.submit, button.reset{
+        flex-direction: column;
+        height: 60px;
+    }
+}
+
+@media (max-width: 470px) {
+    :root{
+        font-size: 9px;
+    }
+    button.submit, button.reset{
+        flex-direction: column;
+        height: 60px;
+    }
+}
