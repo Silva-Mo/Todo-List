@@ -678,6 +678,7 @@ div.task-div button:hover, div.task-div img:hover{
         flex-direction: row;
         width: 100%;
         justify-content: space-between;
+        align-items: center;
         overflow: auto;
         gap: 40px;
     }
@@ -686,6 +687,7 @@ div.task-div button:hover, div.task-div img:hover{
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        margin-left: 40px;
     }
 
     .default-projects-container > * {
@@ -702,6 +704,7 @@ div.task-div button:hover, div.task-div img:hover{
         justify-content: center;
         align-items: center;
         border-top: none;
+        margin-left: 40px;
     }
 
     .new-projects-container > * {
@@ -733,15 +736,16 @@ div.task-div button:hover, div.task-div img:hover{
     }
 
     #todos-container{
-        width: 95%;
+        width: 99%;
     }
 
     div.task-div{
-        width: 95%;
+        width: 99%;
+        overflow: auto;
     }
 
     .todos > div{
-        width: 95%;
+        width: 99%;
     }
 
     div.task-div img{
