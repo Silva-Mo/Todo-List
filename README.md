@@ -1,6 +1,6 @@
 # Todo List  
 ## Result  
-![preview page](imgs/preview.png)  
+![preview page](src/imgs/preview.png)  
 [LIVE DEMO](https://silva-mo.github.io/Todo-List/)
 
 ## About  
