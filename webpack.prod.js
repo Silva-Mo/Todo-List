@@ -1,14 +1,11 @@
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
-const path = require('path');
-const glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
-  // disable source maps to avoid generating .css.map files
-  devtool: false,
+  devtool: 'source-map', // enable source maps for JS and CSS globally
 
   module: {
     rules: [
@@ -16,7 +13,12 @@ module.exports = merge(common, {
         test: /\.css$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader'
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true, // enable CSS source maps in loader
+            },
+          },
         ],
       },
     ],
@@ -33,7 +35,7 @@ module.exports = merge(common, {
         minimizerOptions: {
           preset: [
             'default',
-            { discardComments: { removeAll: true }, mergeLonghand: true, cssDeclarationSorter: true }
+            { discardComments: { removeAll: true }, mergeLonghand: true, cssDeclarationSorter: true },
           ],
         },
       }),
@@ -41,3 +43,4 @@ module.exports = merge(common, {
     ],
   },
 });
+

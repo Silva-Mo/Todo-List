@@ -1,4 +1,4 @@
-import { addProject as createProject, indexTodosValue, getProjectsArray } from "./projects";
+import {indexTodosValue, getProjectsArray } from "./projects";
 import * as domManipulation from './domMethods';
 import * as localStorageStuff from './localStorage'
 

@@ -1,6 +1,6 @@
 import '../css/normalize.css';
 import '../css/styles.css';
-import {addProject as createProject, projectIndexNum, indexTodosValue, changeCurrentProject, addTasktoProject, editTask, getProjectsArray} from "./projects.js";
+import {addProject as createProject, addTasktoProject, editTask, getProjectsArray} from "./projects.js";
 import * as domManipulation from './domMethods.js';
 import * as formMehthods from './formMethods.js';
 import * as defaults from './defaultTodo.js';

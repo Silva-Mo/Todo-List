@@ -1,7 +1,6 @@
 import editImg from '../imgs/edit.svg';
 import deleteImg from '../imgs/delete.svg';
 import { changeTaskStatus, deleteTaskFromProject, getTaskDetails, indexTodosValue, getCurrentProjectIndex } from './projects';
-import { task } from './todos';
 import { showModal, updateModalForm, showProjectTasks } from './domMethods';
 import {format} from "date-fns";
 import * as localStorageStuff from "./localStorage";

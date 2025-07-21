@@ -113,7 +113,7 @@ const createTaskForm = (taskData = null) => {
 }
 
 const createProjectForm = () => {
-    const projectTitle = createInput('Title:', 'text', 'project-title', 'project-title', true, "0", "30")
+    const projectTitle = createInput('Title:', 'text', 'project-title', 'project-title', true, "0", "30");
     return [projectTitle];
 }
 

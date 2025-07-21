@@ -1,5 +1,4 @@
 import deletedImage from "../imgs/empty.svg"
-import { task } from "./todos";
 import * as formElements from "./formDomElements";
 import * as formMehthods from "./formMethods";
 import * as todoElements from "./todoElements";
@@ -119,25 +118,11 @@ const showProjectTasks = (projectTodos, projectIndex) => {
     }
 }
 
-const deleteProject =  (projectIndex) => {
-        const container = document.querySelector(".new-projects-container");
-        container.childNodes.forEach((element) => {
-            if (element.id === projectIndex.toString()){
-                container.removeChild(element);
-            }
-        })
-
-}
 
 const removeProjectsContainerChildrenNodes = (containers) => {
     containers.forEach((container) => {
-        for (let index = 0; index < container.childNodes.length; index++) {
-            if (container.lastElementChild){
-                if (container.lastElementChild.nodeName == "DIV"){
-                    container.removeChild(container.lastElementChild);    
-                }
-
-            }
+        while (container.firstChild && container.lastElementChild.nodeName == "DIV") {
+            container.removeChild(container.lastElementChild);    
         }
     })
 }
@@ -229,11 +214,9 @@ const addStyleOnlyForSelected = (elements, idOfElementToBeSelected, color) => {
     })
 }
 
-const removeFormChildren = (form) => {  
-    for (let index = 0; index < form.childNodes.length; index++) {
-        if (form.firstElementChild && form.firstElementChild.className !== "submit_container"){
-            form.removeChild(form.firstElementChild);
-        }
+const removeFormChildren = (form) => {
+    while (form.firstElementChild && form.firstElementChild.className !== "submit_container") {
+        form.removeChild(form.firstElementChild);
     }
 }
 
@@ -243,15 +226,6 @@ const resetForm = (form) => {
     const arrayOfAllelementsOfForm = Array.from(inputsOfForm).concat(Array.from(textareasOfForm));
     arrayOfAllelementsOfForm.forEach((element) => {
         formMehthods.resetInput(element);
-    })
-}
-
-const assignIdtoProjectElement = () => {
-    const projectDivs = document.querySelectorAll(".project-div");
-    let indexNum = 0;
-    projectDivs.forEach((projectDiv) => {
-        projectDiv.setAttribute("id", `${indexNum}`)
-        indexNum += 1;
     })
 }
 
