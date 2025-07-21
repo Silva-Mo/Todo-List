@@ -755,7 +755,7 @@ div.task-div button:hover, div.task-div img:hover{
 
 @media (max-width: 550px) {
     :root{
-        font-size: 11px;
+        font-size: 12px;
     }
     button.submit, button.reset{
         flex-direction: column;
@@ -765,10 +765,13 @@ div.task-div button:hover, div.task-div img:hover{
 
 @media (max-width: 470px) {
     :root{
-        font-size: 9px;
+        font-size: 11px;
     }
     button.submit, button.reset{
         flex-direction: column;
         height: 60px;
+    }
+    .new-projects-container{
+        margin-left: 120px;
     }
 }
